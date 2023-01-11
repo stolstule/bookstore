@@ -1,0 +1,21 @@
+<nav class="top_nav">
+    <a href="{% url 'main_page' %}"><img src="static/store/img/main_logo.png" height="55" width="65" class="main_logo"></a>
+    <a href="{% url 'personal_area' %}"><img src="static/store/img/user.png" height="40" width="40" class="user_logo"></a>
+    <a href="{% url 'basket_page' %}"><img src="static/store/img/basket.png" height="40" width="38" class="basket_logo"></a>
+    <input type="submit" value="Поиск" class="search_button">
+    <input type="text" size="45" class="search">
+</nav>
+<nav class="down_nav">
+    <div class="genre_block">
+        <button class="genre_button">Жанры</button>
+        <div class="genre_content">
+            <a href="">Фантастика</a>
+            {% for genre in genre_list %}
+                <a href="">genre</a>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{% url 'rating_books' %}" class="rating_button">Рейтинговое</a>
+    <a href="{% url 'popular_books' %}" class="pop_random_button">Популярное</a>
+    <a href="{% url 'random_book' %}" class="pop_random_button">Случайная книга</a>
+</nav>

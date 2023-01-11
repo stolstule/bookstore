@@ -1,0 +1,168 @@
+.top_nav {
+    background: red;
+    height: 65px;
+    width: 100%;
+    border-bottom: 4px solid #973b3b;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.user_logo {
+    box-sizing: border-box;
+    float: right;
+    margin: 10px 15% 5px 6px;
+}
+
+.basket_logo {
+    box-sizing: border-box;
+    float: right;
+    margin: 11px 6px 6px 9px;
+}
+
+.main_logo {
+    margin: 5px 15px 5px 15%;
+    float: left;
+}
+
+.loupe_logo {
+    margin: 17px 0px 5px 10px;
+    box-sizing: border-box;
+}
+
+.search {
+    border-radius: 18px;
+    border: 3px solid #973b3b;
+    height: 35px;
+    font-size: 17px;
+    box-sizing: border-box;
+    margin: 15px -25px 15px 5px;
+    float: left;
+    outline: none;
+    padding-left: 10px;
+    padding-right: 27px;
+}
+
+.search_button:hover {
+    color: rgb(37, 37, 37);
+    transition: 0.1s;
+}
+
+.search_button {
+    font-size: 16px;
+    margin: 15px 0px 15px -2px;
+    border-radius: 20px;
+    width: 100px;
+    height: 35px;
+    border: 0px;
+    background: #973b3b;
+    color: #E8E9ED;
+}
+
+.down_nav {
+    background: #973b3b;
+    height: 40px;
+    width: 100%;
+    box-shadow: 0 5px 6px -2px lightgray;
+
+}
+
+.pop_random_button {
+    position: relative;
+    bottom: 3px;
+    border: 0px;
+    font-family: arial;
+    text-decoration: none;
+    font-size: 18px;
+    color: #E8E9ED;
+    background: none;
+    margin-left: 20px;
+    padding-bottom: 8px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.pop_random_button:hover {
+    color: black;
+    transition: 0.1s;
+    border-bottom: 3px solid rgb(37, 37, 37);
+}
+
+.rating_button {
+    position: relative;
+    bottom: 3px;
+    display: inline-block;
+    border: 0px;
+    font-family: arial;
+    text-decoration: none;
+    font-size: 18px;
+    color: #E8E9ED;
+    background: none;
+    margin-left: 19%;
+    padding-bottom: 8px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.rating_button:hover {
+    color: black;
+    transition: 0.1s;
+    border-bottom: 3px solid rgb(37, 37, 37);
+}
+
+.genre_block {
+    position: relative;
+    display: inline-block;
+    width: 90px;
+    height: 47px;
+    left: 14%;
+    bottom: 3px;
+}
+
+.genre_button:hover {
+    color: rgb(37, 37, 37);
+    transition: 0.1s;
+    border-bottom: 3px solid rgb(37, 37, 37);
+}
+
+.genre_button {
+    border: 0px;
+    font-size: 20px;
+    color: #E8E9ED;
+    background: none;
+    margin: 5px 5px 5px 15px;
+    padding: 4px 4px 8px 4px;
+}
+
+.genre_content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.genre_content a {
+    font-family: arial;
+    font-size: 18px;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.genre_block:hover .genre_content {display: block;}
+
+.genre_content a:hover {background-color: #ddd; border-bottom: 3px solid brown;}
+
+.genre_block:hover .genre_button {
+    color: black;
+    transition: 0.1s;
+    border-bottom: 3px solid rgb(37, 37, 37);
+}
+
+body {
+    margin: 0;
+    background: #EAE8ED;
+}

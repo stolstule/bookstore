@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    RunRead
+{% endblock %}
+
+{% block css_load %}
+    <link rel="stylesheet" href="{% static 'store/css/main_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="get">
+        {% include 'includes/navbar.html' %}
+    </form>
+    <div class="new_block">
+            <div class="book_in_block">
+                <div></div>
+                <div>{{ books.title }}</div>
+            </div>
+    </div>
+    <div class="pop_block">
+
+    </div>
+    <div class="rating_block">
+
+    </div>
+    <div class="self-development">
+
+    </div>
+    <div class="fantasy">
+
+    </div>
+    <div class="history">
+
+    </div>
+{% endblock %}
