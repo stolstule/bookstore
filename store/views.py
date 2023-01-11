@@ -7,8 +7,8 @@ from .models import Book_check
 
 class MainPage(View):
     def get(self, request):
-        books = Book_check.objects.get(id=1)
-        return render(request, 'store/main_page.html', context={'books': books})
+        book = Book_check.objects.get(id=1)
+        return render(request, 'store/main_page.html', context={'book': book})
 
 class BasketAreaPage(View):
     pass
