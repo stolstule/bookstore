@@ -10,12 +10,12 @@
     font-weight: bold;
 }
 
-.name_block {
+.section_with_blocks > h1 {
     color: #141414;
-    font-size: 30px;
+    font-size: 28px;
     margin: 62px 30px 15px 0px;
     padding-left: 2%;
-    border-left: 4px solid brown;
+    border-left: 4px solid #973b3b;
 }
 
 .book_block {
@@ -26,5 +26,5 @@
     padding-bottom: 8px;
     word-wrap: break-word;
     text-align: center;
-    border-bottom: 4px solid brown;
+    border-bottom: 4px solid #973b3b;
 }

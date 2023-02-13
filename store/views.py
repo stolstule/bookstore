@@ -1,14 +1,13 @@
 from django.shortcuts import render
 from django.views import View
-from .models import Book_check
+from .models import Book
 
 # Create your views here.
 
 
 class MainPage(View):
     def get(self, request):
-        book = Book_check.objects.get(id=1)
-        return render(request, 'store/main_page.html', context={'book': book})
+        pass
 
 class BasketAreaPage(View):
     pass

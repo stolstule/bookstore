@@ -10,27 +10,28 @@ from numpy import average
 class Category(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, unique=True)
+    section = models.CharField(max_length=50, null=False, blank=True)
 
     def save(self, *args, **kwargs):
-        translit_slug = translit(self.name, language_code='ru', reversed=True)
+        translit_slug = translit(self.name, language_code='ru', reversed=True).replace("'", "")
         self.slug = translit_slug
         super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
 
-
 class Book(models.Model):
     title = models.CharField(max_length=200, db_index=True)
-    author = models.CharField(max_length=200, db_index=True)
+    author = models.CharField(max_length=200, null=False, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    isbn = models.CharField(max_length=30)
+    isbn = models.CharField(max_length=30, default='NULL')
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
-    price = models.IntegerField(validators=[MaxValueValidator(100000), MinValueValidator(1)], default=10)
-    image = models.FileField(upload_to='book_image', default='img/default_image_book.png')
+    price = models.IntegerField(default=0)
+    image = models.FileField(max_length=1000, default='NULL')
     rating = models.FloatField(default=0)
-    volume = models.IntegerField()
-    description = models.TextField(max_length=1000)
+    volume = models.IntegerField(default=0)
+    description = models.TextField(max_length=4000, default='Без описания')
+    publisher = models.CharField(max_length=50, default='NULL')
 
     rating_dict = []
 
@@ -39,28 +40,13 @@ class Book(models.Model):
         self.rating = average(Book.rating_dict)
 
     def save(self, *args, **kwargs):
-        translit_slug = translit(self.title, language_code='ru', reversed=True)
+        translit_slug = translit(self.title, language_code='ru', reversed=True).replace("'", "")
         self.slug = translit_slug
         super(Book, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
-class Book_check(models.Model):
-    title = models.CharField(max_length=200, db_index=True)
-    isbn = models.CharField(max_length=30)
-    price = models.IntegerField(validators=[MaxValueValidator(100000), MinValueValidator(1)], default=10)
-    image = models.FileField(upload_to='book_image', default='img/default_image_book.png')
-    rating = models.FloatField(default=0)
-
-    rating_dict = []
-
-    def set_rating(self, number):
-        Book.rating_dict.append(number)
-        self.rating = average(Book.rating_dict)
-
-    def save(self, *args, **kwargs):
-        super(Book_check, self).save(*args, **kwargs)
 
 class User(models.Model):
     nickname = models.CharField(max_length=100, db_index=True, unique=True)
