@@ -4,7 +4,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator, MinLeng
 from transliterate import translit
 from numpy import average
 
-# Create your models here.
 
 
 class Category(models.Model):
@@ -23,7 +22,7 @@ class Category(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=200, db_index=True)
     author = models.CharField(max_length=200, null=False, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ManyToManyField(Category)
     isbn = models.CharField(max_length=30, default='NULL')
     slug = models.SlugField(max_length=200, db_index=True, unique=True)
     price = models.IntegerField(default=0)
@@ -34,6 +33,7 @@ class Book(models.Model):
     publisher = models.CharField(max_length=50, default='NULL')
 
     rating_dict = []
+
 
     def set_rating(self, number):
         Book.rating_dict.append(number)
@@ -52,6 +52,7 @@ class User(models.Model):
     nickname = models.CharField(max_length=100, db_index=True, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     password = models.CharField(validators=[MinLengthValidator(5)], max_length=20)
+
 
     def __str__(self):
         return self.nickname
