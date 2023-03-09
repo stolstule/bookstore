@@ -30,7 +30,7 @@ class Book(models.Model):
     rating = models.FloatField(default=0)
     volume = models.IntegerField(default=0)
     description = models.TextField(max_length=4000, default='Без описания')
-    publisher = models.CharField(max_length=50, default='NULL')
+    publisher = models.CharField(max_length=200, default='NULL')
 
     rating_dict = []
 
