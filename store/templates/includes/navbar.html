@@ -9,8 +9,13 @@
     <div class="genre_block">
         <button class="genre_button">Жанры</button>
         <div class="genre_content">
-            {% for genre in genre_list %}
-                <a href="">genre</a>
+            <div>Художественная литература</div>
+            {% for genre in hud_genre_navbar %}
+                <a href="">{{genre}}</a>
+            {% endfor %}
+            <div>Нехудожественная литература</div>
+            {% for genre in nehud_genre_navbar %}
+                <a href="">{{genre}}</a>
             {% endfor %}
         </div>
     </div>

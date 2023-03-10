@@ -14,10 +14,20 @@ class MainPage(View):
             dict_books[i] = book_query[len(book_query) - 5:]
         fantasy_books = dict_books['Фантастика и фэнтези']
         del dict_books['Фантастика и фэнтези']
+        hud_genre_navbar = Category.objects.filter(section='Художественная литература')
+        nehud_genre_navbar = Category.objects.filter(section='Нехудожественная литература')
         return render(request, 'store/main_page.html', {
             'fantasy_books': fantasy_books,
-            'dict_other_books': dict_books
+            'dict_other_books': dict_books,
+            'hud_genre_navbar': hud_genre_navbar,
+            'nehud_genre_navbar': nehud_genre_navbar
         })
+
+def show_genre_books(request, slug_genre:str):
+    books_by_genre = Book.objects.filter(category__name=slug_genre)
+    return render(request, 'store/genre_page.html', {
+        'books_by_genre': books_by_genre
+    })
 
 class BasketAreaPage(View):
     pass
@@ -31,10 +41,6 @@ class PersonalAreaPage(View):
 
 
 class RandomBookPage(View):
-    pass
-
-
-class GenrePage(View):
     pass
 
 

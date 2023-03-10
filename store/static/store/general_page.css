@@ -1,6 +1,6 @@
 .section_with_blocks {
     display: inline-block;
-    margin: 0px auto 20px 15%;
+    margin: 0px auto 17px 15%;
     width: 70%;
     height: auto;
     font-family: arial;
@@ -23,6 +23,7 @@
 }
 
 .book_block {
+    text-decoration: none;
     float: left;
     font-size: 17px;
     width: 200px;
@@ -33,7 +34,23 @@
     font-weight: normal;
 }
 
+.title_style {
+    color: black;
+    text-decoration: none;
+}
+
 .author_style {
+    display: block;
     color: gray;
     font-size: 16px;
+    text-decoration: none;
+}
+
+.author_style:hover, .title_style:hover {
+    color: #973b3b;
+}
+
+.price_style {
+    text-align: center;
+    font-weight: 500;
 }

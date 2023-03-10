@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'store/css/general.css' %}">
+    <link rel="stylesheet" href="{% static 'store/general_page.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -19,24 +19,25 @@
         {% for book in fantasy_books %}
             <div class="book_block">
                 <a href=""><img src="{{ book.image }}" height="300" width="200"></a>
-                <div>{{ book.title }}</div>
-                <div class="author_style">{{ book.author }}</div>
+                <a class="title_style" href="">{{ book.title }}</a>
+                <a class="author_style" href="">{{ book.author }}</a>
+                <div class="price_style">{{ book.price }} ₽</div>
             </div>
         {% endfor %}
     </div>
 
-    {% for genre, books in dict_other_books.item %}
+    {% for genre, books in dict_other_books.items %}
         <div class="section_with_blocks">
             <h2>{{ genre }}</h2>
             {% for book in books %}
                 <div class="book_block">
                     <a href=""><img src="{{ book.image }}" height="300" width="200"></a>
-                    <div>{{ book.title }}</div>
-                    <div class="author_style">{{ book.author }}</div>
+                    <a class='title_style' href="">{{ book.title }}</a>
+                    <a class='author_style' href="">{{ book.author }}</a>
+                    <div class="price_style">{{ book.price }} ₽</div>
                 </div>
             {% endfor %}
         </div>
     {% endfor %}
-
 
 {% endblock %}
