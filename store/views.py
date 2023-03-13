@@ -24,9 +24,12 @@ class MainPage(View):
         })
 
 def show_genre_books(request, slug_genre:str):
-    books_by_genre = Book.objects.filter(category__name=slug_genre)
+    genre_name = Category.objects.get(slug=slug_genre)
+    genre_name = genre_name.name
+    books_by_genre = Book.objects.filter(category__name=genre_name)
     return render(request, 'store/genre_page.html', {
-        'books_by_genre': books_by_genre
+        'books_by_genre': books_by_genre,
+        'genre_name': genre_name
     })
 
 class BasketAreaPage(View):

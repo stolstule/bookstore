@@ -1,9 +1,10 @@
 from django.db import models
+from django.urls import reverse
+from django.utils.text import slugify
 from datetime import datetime
 from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator
 from transliterate import translit
 from numpy import average
-
 
 
 class Category(models.Model):
@@ -11,13 +12,18 @@ class Category(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     section = models.CharField(max_length=50, null=False, blank=True)
 
+
     def save(self, *args, **kwargs):
-        translit_slug = translit(self.name, language_code='ru', reversed=True).replace("'", "")
-        self.slug = translit_slug
+        translit_slug = translit(self.name, language_code='ru', reversed=True)
+        self.slug = slugify(translit_slug)
         super(Category, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.name
+
+    def get_url(self):
+        return reverse('genre_page', args=[self.slug])
 
 class Book(models.Model):
     title = models.CharField(max_length=200, db_index=True)
@@ -34,18 +40,21 @@ class Book(models.Model):
 
     rating_dict = []
 
-
     def set_rating(self, number):
         Book.rating_dict.append(number)
         self.rating = average(Book.rating_dict)
 
     def save(self, *args, **kwargs):
-        translit_slug = translit(self.title, language_code='ru', reversed=True).replace("'", "")
-        self.slug = translit_slug
+        translit_slug = translit(self.title, language_code='ru', reversed=True)
+        self.slug = slugify(translit_slug)
         super(Book, self).save(*args, **kwargs)
+
 
     def __str__(self):
         return self.title
+
+    def get_url(self):
+        return reverse('book_page', args=[self.slug])
 
 
 class User(models.Model):

@@ -11,11 +11,11 @@
         <div class="genre_content">
             <div>Художественная литература</div>
             {% for genre in hud_genre_navbar %}
-                <a href="">{{genre}}</a>
+                <a href="{{ genre.get_url }}">{{genre}}</a>
             {% endfor %}
             <div>Нехудожественная литература</div>
             {% for genre in nehud_genre_navbar %}
-                <a href="">{{genre}}</a>
+                <a href="{{ genre.get_url }}">{{genre}}</a>
             {% endfor %}
         </div>
     </div>
