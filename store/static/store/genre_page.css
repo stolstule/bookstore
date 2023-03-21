@@ -1,12 +1,25 @@
+h1 {
+    font-family: arial;
+    font-size: 28px;
+    margin-top: 30px;
+    text-align: center;
 
+}
+
+.filter_and_book_blocks {
+    float: left;
+    display: block;
+    background: #EAE8ED;
+    width: 70%;
+    margin-left: 15%;
+}
 
 .section_with_blocks {
     float: right;
     display: inline-block;
-    margin: 40px 15% 0 15%;
-    width: 58%;
+    width: 80%;
     height: auto;
-    background: white;
+    background: #EAE8ED;
 }
 
 .book_block {
@@ -14,12 +27,13 @@
     font-size: 17px;
     width: 180px;
     height: 500px;
-    margin: 10px 10px 20px 30px;
+    margin: 23px 10px 15px 15px;
     padding-bottom: 8px;
     text-align: center;
 }
 
 .title_style {
+    display: block;
     color: black;
     text-decoration: none;
     font-family: arial;
@@ -43,4 +57,35 @@
     color: #973b3b;
     font-size: 95%;
     font-family: arial;
+}
+
+.filter_block {
+    background: white;
+    font-size: 17px;
+    box-shadow: 0 5px 6px -2px lightgray;
+    font-family: arial;
+    display: inline-block;
+    width: 230px;
+    margin-top: 20px;
+    padding: 20px 10px 20px 20px;
+    border-left: 3px solid brown;
+}
+
+.filter_block a {
+    width: 83%;
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    padding: 15px 0px 15px 15px;
+}
+
+.filter_block a:hover {
+    background: #E8E9ED;
+}
+
+.price_filter_block {
+    float: left;
+    width: 206px;
+    padding: 15px 0px 15px 0px;
+    border-top: 2px solid lightgray;
 }

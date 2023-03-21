@@ -24,14 +24,19 @@ class MainPage(View):
 
 class ShowGenreBooks(View):
     def get(self, request, slug_genre):
-        genre_name = get_object_or_404(Category, slug=slug_genre)
-        genre_name = genre_name.name
+        genre = get_object_or_404(Category, slug=slug_genre)
+        genre_name = genre.name
         books_by_genre = Book.objects.filter(category__name=genre_name)
+        if genre.section == 'Художественная литература':
+            genre_list = hud_genre_navbar
+        else:
+            genre_list = nehud_genre_navbar
         return render(request, 'store/genre_page.html', {
             'books_by_genre': books_by_genre,
             'genre_name': genre_name,
             'hud_genre_navbar': hud_genre_navbar,
-            'nehud_genre_navbar': nehud_genre_navbar
+            'nehud_genre_navbar': nehud_genre_navbar,
+            'genre_list': genre_list
         })
 
 
