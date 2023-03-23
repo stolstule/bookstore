@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'store/genre_page.css' %}">
+    <link rel="stylesheet" href="{% static 'store/genre_list.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -22,8 +22,12 @@
                 {% endfor %}
                 <form action=""></form>
                     <div class="price_filter_block">
-                        Цена:
-                        <input type="number">
+                        Цена<br>
+                        <input type="number" placeholder="От">
+                        <input type="number" placeholder="До">
+                    </div>
+                    <div class="author_filter_block">
+
                     </div>
                 </form>
             </div>
