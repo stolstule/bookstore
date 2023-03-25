@@ -25,6 +25,7 @@ class Category(models.Model):
     def get_url(self):
         return reverse('genre_page', args=[self.slug])
 
+
 class Book(models.Model):
     title = models.CharField(max_length=200, db_index=True)
     author = models.CharField(max_length=200, null=False, blank=True)

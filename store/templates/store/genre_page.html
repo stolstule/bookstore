@@ -20,15 +20,36 @@
                 {% for genre in genre_list %}
                     <a href="{{ genre.get_url }}">{{genre}}</a><br>
                 {% endfor %}
-                <form action=""></form>
+                <form method="get">
+                    <div class="author_filter_block">
+                        Автор<br>
+                        <input class="author_filter_input" name="author" type="text" list="authors" placeholder="Поиск">
+                        <datalist id="authors">
+                            {% for author in authors_filter %}
+                                <option value="{{ author }}">
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <div class="publisher_filter_block">
+                        Издатель<br>
+                        <input class="publisher_filter_input" name="publisher" type="text" list="publisher" placeholder="Поиск">
+                        <datalist id="publisher">
+                            {% for publisher in publisher_filter %}
+                                <option value="{{ publisher }}">
+                            {% endfor %}
+                        </datalist>
+                    </div>
                     <div class="price_filter_block">
                         Цена<br>
-                        <input type="number" placeholder="От">
-                        <input type="number" placeholder="До">
+                        <input type="number" name="price_from" placeholder="От">
+                        <input type="number" name="price_to" placeholder="До">
                     </div>
-                    <div class="author_filter_block">
-
+                    <div class="volume_filter_block">
+                        Количество страниц<br>
+                        <input type="number" name="volume_from" placeholder="От" value="">
+                        <input type="number" name="volume_to" placeholder="До">
                     </div>
+                    <input type="submit" class="submit_filter" value="Применить">
                 </form>
             </div>
         <div class="section_with_blocks">

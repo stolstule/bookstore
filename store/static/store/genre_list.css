@@ -87,12 +87,56 @@ h1 {
     float: left;
     width: 206px;
     padding: 15px 0px 15px 15px;
-    border-top: 2px solid lightgray;
 }
 
 .price_filter_block input {
     width: 70px;
     height: 25px;
+    margin: 10px 10px 5px 0px;
+    font-size: 15px;
+}
+
+.author_filter_block {
+    border-top: 2px solid lightgray;
+    padding: 15px 0px 15px 15px;
+    margin-right: 10px;
+}
+
+.author_filter_block input {
+    width: 163px;
+    height: 25px;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.publisher_filter_block {
+    padding: 15px 0px 15px 15px;
+}
+
+.publisher_filter_block input {
+    width: 163px;
+    height: 25px;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.volume_filter_block {
+    float: left;
+    width: 206px;
+    padding: 10px 0px 15px 15px;
+}
+
+.volume_filter_block input {
+    width: 70px;
+    height: 25px;
     margin: 10px 10px 10px 0px;
     font-size: 15px;
+}
+
+.submit_filter {
+    background: #E8E9ED;
+    width: 170px;
+    height: 30px;
+    margin: 10px 0px 10px 15px;
+    border: 1px solid gray;
 }

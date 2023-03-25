@@ -5,6 +5,14 @@ from .models import Book, Category
 # Create your views here.
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
 nehud_genre_navbar = Category.objects.filter(section='Нехудожественная литература')
+all_books = Book.objects.all()
+all_publishers = []
+all_authors = []
+for book in all_books:
+    if book.author not in all_authors:
+        all_authors.append(book.author)
+    if book.publisher not in all_publishers:
+        all_publishers.append(book.publisher)
 
 class MainPage(View):
     def get(self, request):
@@ -31,14 +39,18 @@ class ShowGenreBooks(View):
             genre_list = hud_genre_navbar
         else:
             genre_list = nehud_genre_navbar
+        if len(request.GET()) > 0:
+
+
         return render(request, 'store/genre_page.html', {
             'books_by_genre': books_by_genre,
             'genre_name': genre_name,
             'hud_genre_navbar': hud_genre_navbar,
             'nehud_genre_navbar': nehud_genre_navbar,
-            'genre_list': genre_list
+            'genre_list': genre_list,
+            'all_authors': all_authors,
+            'all_publishers': all_publishers
         })
-
 
 # def show_genre_books(request, slug_genre:str):
 #     genre_name = Category.objects.get(slug=slug_genre)
