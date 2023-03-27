@@ -23,31 +23,31 @@
                 <form method="get">
                     <div class="author_filter_block">
                         Автор<br>
-                        <input class="author_filter_input" name="author" type="text" list="authors" placeholder="Поиск">
+                        <input class="author_filter_input" name="author" type="text" autocomplete="off" list="authors" placeholder="Поиск">
                         <datalist id="authors">
-                            {% for author in authors_filter %}
+                            {% for author in all_authors %}
                                 <option value="{{ author }}">
                             {% endfor %}
                         </datalist>
                     </div>
                     <div class="publisher_filter_block">
                         Издатель<br>
-                        <input class="publisher_filter_input" name="publisher" type="text" list="publisher" placeholder="Поиск">
+                        <input class="publisher_filter_input" name="publisher" autocomplete="off" type="text" list="publisher" placeholder="Поиск">
                         <datalist id="publisher">
-                            {% for publisher in publisher_filter %}
+                            {% for publisher in all_publishers %}
                                 <option value="{{ publisher }}">
                             {% endfor %}
                         </datalist>
                     </div>
                     <div class="price_filter_block">
                         Цена<br>
-                        <input type="number" name="price_from" placeholder="От">
-                        <input type="number" name="price_to" placeholder="До">
+                        <input type="number" name="price_from" autocomplete="off"  placeholder="От">
+                        <input type="number" name="price_to" autocomplete="off"  placeholder="До">
                     </div>
                     <div class="volume_filter_block">
                         Количество страниц<br>
-                        <input type="number" name="volume_from" placeholder="От" value="">
-                        <input type="number" name="volume_to" placeholder="До">
+                        <input type="number" name="volume_from" autocomplete="off"  placeholder="От {{ price_min }}" value="{{ price_min }}">
+                        <input type="number" name="volume_to" autocomplete="off"  placeholder="До" >
                     </div>
                     <input type="submit" class="submit_filter" value="Применить">
                 </form>
