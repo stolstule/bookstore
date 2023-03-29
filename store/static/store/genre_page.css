@@ -12,6 +12,7 @@ h1 {
     background: #EAE8ED;
     width: 70%;
     margin-left: 15%;
+    margin-right: 180px;
 }
 
 .section_with_blocks {
@@ -22,12 +23,16 @@ h1 {
     background: #EAE8ED;
 }
 
+.section_with_blocks h1 {
+    padding-right: 24%;
+}
+
 .book_block {
-    float: right;
+    float: left;
     font-size: 17px;
     width: 180px;
     height: 500px;
-    margin: 23px 10px 15px 15px;
+    margin: 23px 10px 15px 23px;
     padding-bottom: 8px;
     text-align: center;
 }

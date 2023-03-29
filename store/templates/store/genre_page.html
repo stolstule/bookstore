@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'store/genre_list.css' %}">
+    <link rel="stylesheet" href="{% static 'store/genre_page.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -15,6 +15,20 @@
     </form>
     <h1>{{ genre_name }}</h1>
     <div class="filter_and_book_blocks">
+        <div class="section_with_blocks">
+            {% if count_books > 0 %}
+                {% for book in books_by_genre %}
+                    <div class="book_block">
+                        <a href=""><img src="{{ book.image }}" height="280" width="180"></a>
+                        <a class="title_style" href="">{{ book.title }}</a>
+                        <a class="author_style" href="">{{ book.author }}</a>
+                        <div class="price_style">{{ book.price }} ₽</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h1>Результатов не найдено</h1>
+            {% endif %}
+        </div>
             <div class="filter_block">
                 <div>{{ genre.section }}</div>
                 {% for genre in genre_list %}
@@ -23,7 +37,7 @@
                 <form method="get">
                     <div class="author_filter_block">
                         Автор<br>
-                        <input class="author_filter_input" name="author" type="text" autocomplete="off" list="authors" placeholder="Поиск">
+                        <input class="author_filter_input" name="author" type="text" autocomplete="off" list="authors" placeholder="Поиск" value="{{ author_field }}">
                         <datalist id="authors">
                             {% for author in all_authors %}
                                 <option value="{{ author }}">
@@ -32,7 +46,7 @@
                     </div>
                     <div class="publisher_filter_block">
                         Издатель<br>
-                        <input class="publisher_filter_input" name="publisher" autocomplete="off" type="text" list="publisher" placeholder="Поиск">
+                        <input class="publisher_filter_input" name="publisher" autocomplete="off" type="text" list="publisher" placeholder="Поиск" value="{{ publisher_field }}">
                         <datalist id="publisher">
                             {% for publisher in all_publishers %}
                                 <option value="{{ publisher }}">
@@ -41,26 +55,16 @@
                     </div>
                     <div class="price_filter_block">
                         Цена<br>
-                        <input type="number" name="price_from" autocomplete="off"  placeholder="От">
-                        <input type="number" name="price_to" autocomplete="off"  placeholder="До">
+                        <input type="number" name="price_from" autocomplete="off"  placeholder='От {{ price_min }}' value={{ price_from_field }}>
+                        <input type="number" name="price_to" autocomplete="off"  placeholder='До {{ price_max }}' value="{{ price_to_field }}">
                     </div>
                     <div class="volume_filter_block">
                         Количество страниц<br>
-                        <input type="number" name="volume_from" autocomplete="off"  placeholder="От {{ price_min }}" value="{{ price_min }}">
-                        <input type="number" name="volume_to" autocomplete="off"  placeholder="До" >
+                        <input type="number" name="volume_from" autocomplete="off"  placeholder="От {{ volume_min }}" value={{ volume_from_field }}>
+                        <input type="number" name="volume_to" autocomplete="off"  placeholder="До {{ volume_max }}" value={{ volume_to_field }}>
                     </div>
                     <input type="submit" class="submit_filter" value="Применить">
                 </form>
             </div>
-        <div class="section_with_blocks">
-            {% for book in books_by_genre %}
-                <div class="book_block">
-                    <a href=""><img src="{{ book.image }}" height="280" width="180"></a>
-                    <a class="title_style" href="">{{ book.title }}</a>
-                    <a class="author_style" href="">{{ book.author }}</a>
-                    <div class="price_style">{{ book.price }} ₽</div>
-                </div>
-            {% endfor %}
-        </div>
     </div>
 {% endblock %}
