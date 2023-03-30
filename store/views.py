@@ -99,14 +99,15 @@ class ShowGenreBooks(View):
                 'volume_max': Book.objects.aggregate(Max("volume"))['volume__max'],
             })
 
-# def show_genre_books(request, slug_genre:str):
-#     genre_name = Category.objects.get(slug=slug_genre)
-#     genre_name = genre_name.name
-#     books_by_genre = Book.objects.filter(category__name=genre_name)
-#     return render(request, 'store/genre_page.html', {
-#         'books_by_genre': books_by_genre,
-#         'genre_name': genre_name
-#     })
+class BookPage(View):
+    def get(self, request, slug_book):
+        book = get_object_or_404(Book, slug=slug_book)
+        return render(request, 'store/book_page.html', {
+            'book': book,
+            'hud_genre_navbar': hud_genre_navbar,
+            'nehud_genre_navbar': nehud_genre_navbar
+        })
+
 
 class BasketAreaPage(View):
     pass
@@ -116,14 +117,11 @@ class PopularBooksPage(View):
 
 
 class PersonalAreaPage(View):
-    pass
+    def get(self, request):
+        return render(request, 'store/book_page.html')
 
 
 class RandomBookPage(View):
-    pass
-
-
-class BookPage(View):
     pass
 
 class RatingBooksPage(View):

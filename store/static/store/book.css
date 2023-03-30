@@ -1,0 +1,14 @@
+.general_book_block {
+    margin: 3% 15% 5% 15%;
+    background-color: red;
+}
+
+.general_book_block h1 {
+    display: block;
+    padding-top: 20px;
+    width: 100%;
+    margin: 0px;
+    height: 60px;
+    font-family: arial;
+    background: green;
+}

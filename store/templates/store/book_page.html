@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ book.title }}
+{% endblock %}
+
+{% block css_load %}
+    <link rel="stylesheet" href="{% static 'store/book.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="get">
+        {% include 'includes/navbar.html' %}
+    </form>
+
+    <div class="general_book_block">
+        <h1>{{ book.title }}</h1>
+        <img src="{{ book.image }}" height="600" width="400">
+        <div class="buy_block"></div>
+        <div class="description_block"></div>
+        <div class="details_block"></div>
+    </div>
+{% endblock %}

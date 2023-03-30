@@ -8,7 +8,7 @@ urlpatterns = [
     path('random_book', views.RandomBookPage.as_view(), name='random_book'),
     path('popular_books', views.PopularBooksPage.as_view(), name='popular_books'),
     path('personal_area', views.PersonalAreaPage.as_view(), name='personal_area'),
+    path('book_page/<slug:slug_book>', views.BookPage.as_view(), name='book_page'),
     path('<slug:slug_genre>', views.ShowGenreBooks.as_view(), name='genre_page'),
-    # path('<slug:slug_book>', views.BookPage, name='book_page'),
     path('basket', views.BasketAreaPage.as_view(), name='basket_page')
 ]

@@ -18,9 +18,9 @@
         <h2>Фантастика и фэнтези</h2>
         {% for book in fantasy_books %}
             <div class="book_block">
-                <a href=""><img src="{{ book.image }}" height="300" width="200"></a>
-                <a class="title_style" href="">{{ book.title }}</a>
-                <a class="author_style" href="">{{ book.author }}</a>
+                <a href="{{ book.get_url }}"><img src="{{ book.image }}" height="300" width="200"></a>
+                <a class="title_style" href="{{ book.get_url }}">{{ book.title }}</a>
+                <a class="author_style" href="{{ book.get_url }}">{{ book.author }}</a>
                 <div class="price_style">{{ book.price }} ₽</div>
             </div>
         {% endfor %}
@@ -31,7 +31,7 @@
             <h2>{{ genre }}</h2>
             {% for book in books %}
                 <div class="book_block">
-                    <a href=""><img src="{{ book.image }}" height="300" width="200"></a>
+                    <a href="{{ book.get_url }}"><img src="{{ book.image }}" height="300" width="200"></a>
                     <a class='title_style' href="">{{ book.title }}</a>
                     <a class='author_style' href="">{{ book.author }}</a>
                     <div class="price_style">{{ book.price }} ₽</div>
