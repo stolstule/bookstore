@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'store'
+    'store',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +74,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'bookstore.wsgi.application'
 
 MEDIA_URL = '/media/'
+
+CART_SESSION_ID = 'cart'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

@@ -1,0 +1,84 @@
+.general_book_block {
+    display: inline-block;
+    margin: 3% 15% 5% 15%;
+    width: 70%;
+    background-color: red;
+    font-family: arial;
+    background: white;
+    float: left;
+    border-left: 4px solid brown;
+}
+
+.general_book_block img {
+    float: left;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.general_book_block h2 {
+    display: block;
+    padding: 20px 0px 20px 20px;
+    width: 100%;
+    margin: 0px;
+    height: auto;
+    font-family: arial;
+    font-size: 28px;
+}
+
+.description_block {
+    width: 450px;
+    float: left;
+    font-size: 20px;
+    display: block;
+    margin-left: 150px;
+    margin-bottom: 40px;
+    padding: 0px 20px 10px 20px;
+    border-right: 1px solid gray;
+
+}
+
+.buy_block {
+    margin-top: 20px;
+    width: 220px;
+    float: left;
+    font-size: 25px;
+    padding: 15px 15px 15px 20px;
+    margin-left: 10px;
+    border-left: 1px solid black;
+}
+
+.buy_block input {
+    width: 210px;
+    margin-top: 10px;
+    margin-left: 2px;
+    background: green;
+    display: block;
+    font-size: 23px;
+    padding: 13px;
+    padding-left: 17px;
+    color: white;
+    font-weight: 100;
+    text-align: center;
+    border: 0px;
+}
+
+.buy_block input:hover {
+    background: green;
+    display: block;
+    background: linear-gradient( 0deg, brown, green);
+    color: gray;
+    transition: 0.3s;
+}
+
+.details_block{
+    position: absolute;
+    width: 300px;
+    left: 700px;
+    top: 560px;
+    border-left: 1px solid black;
+}
+
+.detail_element {
+    margin: 10px;
+    font-size: 18px;
+}

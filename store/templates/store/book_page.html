@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'store/book.css' %}">
+    <link rel="stylesheet" href="{% static 'store/book_page.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -15,10 +15,19 @@
     </form>
 
     <div class="general_book_block">
-        <h1>{{ book.title }}</h1>
-        <img src="{{ book.image }}" height="600" width="400">
-        <div class="buy_block"></div>
-        <div class="description_block"></div>
-        <div class="details_block"></div>
+        <h2>{{ book.title }}. {{ book.author }}</h2>
+        <img src="{{ book.image }}" height="560" width="380">
+        <div class="buy_block">Цена: {{ book.price }} ₽<br><input type="submit" value="Купить"></div>
+        <div class="details_block">
+            <div class="detail_element">{{ book.isbn }}<br></div>
+            <div class="detail_element">Издательство: {{ book.publisher }}</div>
+            <div class="detail_element">Автор: {{ book.author }}</div>
+            {% if book.volume == None %}
+                <div class="detail_element">Страниц: Неизвестно</div>
+            {% else %}
+                <div class="detail_element">Страниц: {{ book.volume }}</div>
+            {% endif %}
+        </div>
+        <div class="description_block"><b>Аннотация к книге "{{ book.title }}"</b><br>{{ book.description }}</div>
     </div>
 {% endblock %}
