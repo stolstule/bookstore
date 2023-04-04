@@ -126,3 +126,4 @@ class RandomBookPage(View):
 
 class RatingBooksPage(View):
     pass
+
