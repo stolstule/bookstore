@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import Book, Category
+from django.contrib.auth import views
+from django.contrib.auth import logout, login
 from django.db.models import Max, Min
 
 # Create your views here.
@@ -127,3 +129,6 @@ class RandomBookPage(View):
 class RatingBooksPage(View):
     pass
 
+def logout(request):
+    logout(request)
+    return redirect('/')

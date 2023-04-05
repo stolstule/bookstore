@@ -78,7 +78,7 @@
     border-left: 1px solid black;
 }
 
-.detail_element {
+.details_block > p {
     margin: 10px;
     font-size: 18px;
 }

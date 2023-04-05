@@ -18,13 +18,11 @@ class Category(models.Model):
         self.slug = slugify(translit_slug)
         super(Category, self).save(*args, **kwargs)
 
-
     def __str__(self):
         return self.name
 
     def get_url(self):
         return reverse('genre_page', args=[self.slug])
-
 
 class Book(models.Model):
     title = models.CharField(max_length=200, db_index=True)
@@ -56,7 +54,6 @@ class Book(models.Model):
 
     def get_url(self):
         return reverse('book_page', args=[self.slug])
-
 
 class User(models.Model):
     nickname = models.CharField(max_length=100, db_index=True, unique=True)
