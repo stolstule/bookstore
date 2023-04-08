@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'store',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -76,7 +78,6 @@ LOGIN_REDIRECT_URL = '/'
 
 MEDIA_URL = '/media/'
 
-CART_SESSION_ID = 'cart'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

@@ -145,3 +145,7 @@ h1 {
     margin: 10px 0px 10px 15px;
     border: 1px solid gray;
 }
+
+.submit_filter:hover {
+    background: lightgray;
+}

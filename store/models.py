@@ -55,31 +55,22 @@ class Book(models.Model):
     def get_url(self):
         return reverse('book_page', args=[self.slug])
 
-class User(models.Model):
-    nickname = models.CharField(max_length=100, db_index=True, unique=True)
-    email = models.EmailField(max_length=100, unique=True)
-    password = models.CharField(validators=[MinLengthValidator(5)], max_length=20)
-
-
-    def __str__(self):
-        return self.nickname
-
 
 class Review(models.Model):
     content = models.TextField(max_length=500, blank=True)
     rating_review = models.FloatField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
 
 class Order(models.Model):
     number = models.AutoField(validators=[MinValueValidator(100)], primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     book = models.ManyToManyField(Book)
 
 
 class Card(models.Model):
     number = models.CharField(max_length=16)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField('auth.User', on_delete=models.CASCADE)
     date_month = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(12)])
     date_year = models.IntegerField(validators=[MinValueValidator(datetime.now().year), MaxValueValidator(datetime.now().year + 5)])
     last_name = models.CharField(max_length=20)

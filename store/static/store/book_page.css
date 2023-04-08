@@ -63,11 +63,9 @@
 }
 
 .buy_block input:hover {
-    background: green;
     display: block;
-    background: linear-gradient( 0deg, brown, green);
-    color: gray;
-    transition: 0.3s;
+    color: black;
+    transition: 0.1s;
 }
 
 .details_block{
