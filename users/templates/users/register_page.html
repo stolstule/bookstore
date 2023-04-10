@@ -7,17 +7,10 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'users/register_page.css' %}">
+    <link rel="stylesheet" href="{% static 'users/register_pag.css' %}">
 {% endblock %}
 
 {% block content %}
-    {% if messages %}
-        	{% for message in messages %}
-          	<div class="{{ message.tags }}">
-            	{{ message }}
-          	</div>
-        	{% endfor %}
-    {% endif %}
     <form method="get">
         {% include 'includes/navbar.html' %}
     </form>
@@ -26,7 +19,7 @@
             {% csrf_token %}
             <div class="form-section">
                 <h2>Регистрация</h2>
-                <span>Логин</span>
+                <span>Имя</span>
                 <div>{{ form.username|add_class:"form-input" }}</div>
                 <span>Email</span>
                 <div>{{ form.email|add_class:"form-input" }}</div>
@@ -34,6 +27,13 @@
                 <div>{{ form.password1|add_class:"form-input" }}</div>
                 <span>Повторите пароль</span>
                 <div>{{ form.password2|add_class:"form-input" }}</div>
+                {% if field_errors %}
+                    {% for error in field_errors %}
+                        <ul>
+                            <li>{{ error }}</li>
+                        </ul>
+                    {% endfor %}
+                {% endif %}
                 <button class="register-btn" type="submit">Ввод</button>
             </div>
         </form>

@@ -39,7 +39,13 @@
 }
 
 .have-account {
-    padding: 20px 0px 30px 0px;
+    padding: 20px 15px 30px 0px;
     text-align: center;
+}
+
+.form-section ul {
+    color: red;
+    margin: 10px 0px 10px 23px;
+    padding: 0px;
 }
 
