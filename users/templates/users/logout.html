@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Вход
+{% endblock %}
+
+{% block css_load %}
+    <link rel="stylesheet" href="{% static 'users/log_and_reg_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="get">
+        {% include 'includes/navbar.html' %}
+    </form>
+    <div class="logout-section">
+      <h3>Вы вышли из своей учетной записи</h3>
+      <a href="{% url 'login' %}">Войти</a>
+    </div>
+{% endblock %}

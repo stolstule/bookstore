@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Вход
+{% endblock %}
+
+{% block css_load %}
+    <link rel="stylesheet" href="{% static 'users/log_and_reg_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="get">
+        {% include 'includes/navbar.html' %}
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+        <div class="message">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+    <div class="register-section">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-section">
+                <h2>Вход</h2>
+                <span>Email</span>
+                <div>{{ form.email|add_class:"form-input" }}</div>
+                <span>Пароль</span>
+                <div>{{ form.password|add_class:"form-input" }}</div>
+                {% if field_errors %}
+                    {% for error in field_errors %}
+                        <ul>
+                            <li>{{ error }}</li>
+                        </ul>
+                    {% endfor %}
+                {% endif %}
+                <button class="register-btn" type="submit">Ввод</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

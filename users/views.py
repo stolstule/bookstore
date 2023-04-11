@@ -17,7 +17,6 @@ def register(request):
 		if form.is_valid() and  not User.objects.filter(email=form.data['email']):
 			form.save()
 			username = form.cleaned_data.get('username')
-			messages.success(request, f'Создан аккаунт {username}!')
 			return redirect('/')
 		elif form.errors:
 			field_errors = []
