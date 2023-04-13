@@ -7,15 +7,17 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'users/log_and_reg_page.css' %}">
+    <link rel="stylesheet" href="{% static 'users/logout.css' %}">
 {% endblock %}
 
 {% block content %}
     <form method="get">
         {% include 'includes/navbar.html' %}
     </form>
-    <div class="logout-section">
-      <h3>Вы вышли из своей учетной записи</h3>
-      <a href="{% url 'login' %}">Войти</a>
+    <div class="logout-block">
+        <div class="text-block">
+            <h2>Вы вышли из своей учетной записи</h2>
+            <a href="{% url 'login' %}">Войти</a>
+        </div>
     </div>
 {% endblock %}

@@ -1,0 +1,13 @@
+.logout-block {
+    font-family: arial;
+    margin: 20px 15% 0px 15%;
+    border-left: 4px solid brown;
+    background: white;
+    padding: 10px 0px 30px 30px;
+}
+
+.logout-block a {
+    font-weight: bold;
+    color: brown;
+    text-decoration: none;
+}

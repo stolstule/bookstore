@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import TextInput, EmailInput
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class UserRegisterForm(UserCreationForm):
@@ -17,3 +17,9 @@ class UserRegisterForm(UserCreationForm):
                 'unique': 'Такое имя уже существует!',
             },
         }
+
+class UserAuthenticationForm(AuthenticationForm):
+    error_messages = {
+        'invalid_login': 'Вы ввели неправильный логин или пароль!',
+        'inactive': 'Это аккаунт не активен!'
+    }

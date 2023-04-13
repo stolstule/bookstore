@@ -1,7 +1,7 @@
 .register-section {
     font-family: arial;
     background: white;
-    border-left: 3px solid brown;
+    border-left: 4px solid brown;
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
@@ -28,7 +28,7 @@
 .register-btn {
     font-size: 20px;
     margin: 20px 0px 10px 0px;
-    background: #E8E9ED;;
+    background: #E8E9ED;
     border: 1px solid gray;
     width: 272px;
     height: 35px;
@@ -43,9 +43,10 @@
     text-align: center;
 }
 
-.form-section ul {
+.errors-section {
     color: red;
     margin: 10px 0px 10px 23px;
     padding: 0px;
 }
+
 

@@ -1,11 +1,11 @@
 import sys
-sys.path.append("..users")
+sys.path.append("..store")
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from django.views import View
 from django.contrib.auth.models import User
-from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from store.models import Book, Category
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserAuthenticationForm
 
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
 nehud_genre_navbar = Category.objects.filter(section='Нехудожественная литература')
@@ -38,3 +38,28 @@ def register(request):
 		'hud_genre_navbar': hud_genre_navbar,
 		'nehud_genre_navbar': nehud_genre_navbar
 	})
+
+
+def login_views(request):
+    error = ''
+    if request.method == 'POST':
+        form = UserAuthenticationForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request=request, username=username, password=password)
+            if user:
+                login(request, user)
+                return redirect('/')
+        else:
+            error = 'Вы ввели неправильный логин или пароль!'
+    else:
+        form = UserAuthenticationForm()
+    return render(request, 'users/login.html', {
+        'form': form,
+        'field_error': error
+    })
+
+@login_required
+def profile(request):
+    return render(request, 'users/profile.html')

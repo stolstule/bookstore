@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'users/log_and_reg_page.css' %}">
+    <link rel="stylesheet" href="{% static 'users/login_and_reg_page.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -26,18 +26,17 @@
             {% csrf_token %}
             <div class="form-section">
                 <h2>Вход</h2>
-                <span>Email</span>
-                <div>{{ form.email|add_class:"form-input" }}</div>
+                <span>Логин</span>
+                <div>{{ form.username|add_class:"form-input" }}</div>
                 <span>Пароль</span>
                 <div>{{ form.password|add_class:"form-input" }}</div>
-                {% if field_errors %}
-                    {% for error in field_errors %}
-                        <ul>
-                            <li>{{ error }}</li>
-                        </ul>
-                    {% endfor %}
+                {% if field_error %}
+                    <div class="errors-section">{{ field_error }}</div>
                 {% endif %}
                 <button class="register-btn" type="submit">Ввод</button>
+            </div>
+            <div class="have-account">
+                    Нет аккаунта? <a class="ml-2" href="{% url 'register' %}">Регистрация</a>
             </div>
         </form>
     </div>

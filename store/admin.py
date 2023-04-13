@@ -1,5 +1,10 @@
+import sys
+sys.path.append("..users")
 from django.contrib import admin
 from .models import  Book, Category
+from users.models import Profile
+
+admin.site.register(Profile)
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
