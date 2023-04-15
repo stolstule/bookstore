@@ -10,10 +10,6 @@
 {% endblock %}
 
 {% block content %}
-    <form method="get">
-        {% include 'includes/navbar.html' %}
-    </form>
-
     <div class="general_book_block">
         <h2>{{ book.title }}. {{ book.author }}</h2>
         <img src="{{ book.image }}" height="560" width="380">

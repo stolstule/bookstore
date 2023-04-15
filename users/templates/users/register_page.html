@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load widget_tweaks %}
 
 {% block title %}
     Регистрация
@@ -11,15 +10,12 @@
 {% endblock %}
 
 {% block content %}
-    <form method="get">
-        {% include 'includes/navbar.html' %}
-    </form>
     <div class="register-section">
         <form method="POST">
             {% csrf_token %}
             <div class="form-section">
                 <h2>Регистрация</h2>
-                <span>Имя</span>
+                <span>Логин</span>
                 <div>{{ form.username|add_class:"form-input" }}</div>
                 <span>Email</span>
                 <div>{{ form.email|add_class:"form-input" }}</div>

@@ -1,6 +1,7 @@
 import sys
 sys.path.append("..store")
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -17,7 +18,7 @@ def register(request):
 		if form.is_valid() and  not User.objects.filter(email=form.data['email']):
 			form.save()
 			username = form.cleaned_data.get('username')
-			return redirect('/')
+			return redirect('login')
 		elif form.errors:
 			field_errors = []
 			if User.objects.filter(email=form.data['email']):
@@ -28,6 +29,8 @@ def register(request):
 						field_errors.append('Пароль должен содержать не менее 8 символов!')
 					elif value == 'This password is too common.':
 						field_errors.append('Этот пароль слишком простой, пароль должен содержать цифры, заглавные и строчные буквы!')
+					elif value == 'The password is too similar to the username.':
+						field_errors.append('Пароль слишком похож на логин!')
 					else:
 						field_errors.append(value)
 	else:
@@ -39,27 +42,29 @@ def register(request):
 		'nehud_genre_navbar': nehud_genre_navbar
 	})
 
+class LoginPage(LoginView):
+    template_name = 'users/login.html'
+    error_messages = {
+		'invalid_login': 'Вы ввели неправильный логин или пароль!',
+		'inactive': 'Вы ввели неправильный логин или пароль!'
+	}
 
-def login_views(request):
-    error = ''
-    if request.method == 'POST':
-        form = UserAuthenticationForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request=request, username=username, password=password)
-            if user:
-                login(request, user)
-                return redirect('/')
-        else:
-            error = 'Вы ввели неправильный логин или пароль!'
-    else:
-        form = UserAuthenticationForm()
-    return render(request, 'users/login.html', {
-        'form': form,
-        'field_error': error
-    })
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hud_genre_navbar'] = hud_genre_navbar
+        context['nehud_genre_navbar'] = nehud_genre_navbar
+        return context
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'users/logout.html', {
+		'hud_genre_navbar': hud_genre_navbar,
+		'nehud_genre_navbar': nehud_genre_navbar
+	})
 
 @login_required
 def profile(request):
-    return render(request, 'users/profile.html')
+    return render(request, 'users/profile.html', {
+		'hud_genre_navbar': hud_genre_navbar,
+		'nehud_genre_navbar': nehud_genre_navbar
+	})

@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import Book, Category
-from django.db.models import Max, Min
+from django.db.models import Max, Min, Q, F
+from .forms import SearchForm
 
 # Create your views here.
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
@@ -108,18 +109,22 @@ class BookPage(View):
             'nehud_genre_navbar': nehud_genre_navbar
         })
 
+def search_page(request, search_field):
+    search_slug = search_field
+    book_list = Book.objects.filter(Q(title__icontains=search_slug) | Q(author__icontains=search_slug))
+    return render(request, 'store/search_page.html', {
+        'book_list': book_list,
+        'search_field': search_slug,
+        'hud_genre_navbar': hud_genre_navbar,
+        'nehud_genre_navbar': nehud_genre_navbar
+    })
+
 
 class BasketAreaPage(View):
     pass
 
 class PopularBooksPage(View):
     pass
-
-
-class PersonalAreaPage(View):
-    def get(self, request):
-        return render(request, 'store/book_page.html')
-
 
 class RandomBookPage(View):
     pass

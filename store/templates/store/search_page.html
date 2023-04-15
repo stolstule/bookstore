@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ search_field }}
+{% endblock %}
+
+{% block css_load %}
+    <link rel="stylesheet" href="{% static 'store/book_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>{{ search_field }}</h1>
+    <div class="filter_and_book_blocks">
+        <div class="section_with_blocks">
+            {% if book_list > 0 %}
+                {% for book in book_list %}
+                    <div class="book_block">
+                        <a href="{{ book.get_url }}"><img src="{{ book.image }}" height="280" width="180"></a>
+                        <a class="title_style" href="{{ book.get_url }}">{{ book.title }}</a>
+                        <a class="author_style" href="{{ book.get_url }}">{{ book.author }}</a>
+                        <div class="price_style">{{ book.price }} ₽</div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h1>Результатов по запросу "{{ search_field }}" не найдено</h1>
+            {% endif %}
+{% endblock %}

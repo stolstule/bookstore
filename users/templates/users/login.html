@@ -11,9 +11,6 @@
 {% endblock %}
 
 {% block content %}
-    <form method="get">
-        {% include 'includes/navbar.html' %}
-    </form>
     {% if messages %}
         {% for message in messages %}
         <div class="message">
@@ -30,8 +27,8 @@
                 <div>{{ form.username|add_class:"form-input" }}</div>
                 <span>Пароль</span>
                 <div>{{ form.password|add_class:"form-input" }}</div>
-                {% if field_error %}
-                    <div class="errors-section">{{ field_error }}</div>
+                {% if form.errors %}
+                    <div class="errors-section">Вы ввели неправильный логин или пароль!</div>
                 {% endif %}
                 <button class="register-btn" type="submit">Ввод</button>
             </div>
