@@ -2,6 +2,21 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block content %}
+{% block title %}
+    Профиль
+{% endblock %}
 
+{% block css_load %}
+    <link rel="stylesheet" href="{% static 'users/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+	<div class="profile-block">
+  	    <div class="head-block">
+            <img class="user-avatar" src="{{ user.profile.image }}" height="220" width="225">
+			<h2 class="profile-username">{{ user.username }}</h2>
+			<p class="profile-email">{{ user.email }}</p>
+  		</div>
+  	<!-- Здесь будет форма -->
+	</div>
 {% endblock %}

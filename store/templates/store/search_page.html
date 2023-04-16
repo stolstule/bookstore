@@ -6,14 +6,13 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'store/book_page.css' %}">
+    <link rel="stylesheet" href="{% static 'store/search_page.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h1>{{ search_field }}</h1>
-    <div class="filter_and_book_blocks">
-        <div class="section_with_blocks">
-            {% if book_list > 0 %}
+        {% if book_list %}
+            <h1 class="result_name">Результаты по запросу "{{ search_field }}"</h1>
+            <div class="result_block">
                 {% for book in book_list %}
                     <div class="book_block">
                         <a href="{{ book.get_url }}"><img src="{{ book.image }}" height="280" width="180"></a>
@@ -22,7 +21,8 @@
                         <div class="price_style">{{ book.price }} ₽</div>
                     </div>
                 {% endfor %}
-            {% else %}
-                <h1>Результатов по запросу "{{ search_field }}" не найдено</h1>
-            {% endif %}
+            </div>
+        {% else %}
+            <h1 class="result_name">Результатов по запросу "{{ search_field }}" не найдено</h1>
+        {% endif %}
 {% endblock %}

@@ -109,15 +109,21 @@ class BookPage(View):
             'nehud_genre_navbar': nehud_genre_navbar
         })
 
-def search_page(request, search_field):
-    search_slug = search_field
-    book_list = Book.objects.filter(Q(title__icontains=search_slug) | Q(author__icontains=search_slug))
-    return render(request, 'store/search_page.html', {
-        'book_list': book_list,
-        'search_field': search_slug,
-        'hud_genre_navbar': hud_genre_navbar,
-        'nehud_genre_navbar': nehud_genre_navbar
-    })
+def search_page(request):
+    if request.method == 'GET':
+        search_field = request.GET.get('search_field', '')
+        book_list = Book.objects.filter(Q(title__icontains=search_field) | Q(author__icontains=search_field))
+        return render(request, 'store/search_page.html', {
+            'search_field': search_field,
+            'book_list': book_list,
+            'hud_genre_navbar': hud_genre_navbar,
+            'nehud_genre_navbar': nehud_genre_navbar
+        })
+    else:
+        return render(request, 'store/search_page.html', {
+            'hud_genre_navbar': hud_genre_navbar,
+            'nehud_genre_navbar': nehud_genre_navbar
+        })
 
 
 class BasketAreaPage(View):

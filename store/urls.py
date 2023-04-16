@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.MainPage.as_view(), name='main_page'),
-    path('search/<slug:search_field>', views.search_page, name='search'),
+    path('search', views.search_page, name='search'),
     path('rating_books', views.RatingBooksPage.as_view(), name='rating_books'),
     path('random_book', views.RandomBookPage.as_view(), name='random_book'),
     path('popular_books', views.PopularBooksPage.as_view(), name='popular_books'),

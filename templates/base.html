@@ -17,12 +17,12 @@
         <a href="{% url 'profile' %}"><img src="/static/store/img/user.png" height="40" width="40" class="user_logo"></a>
         <a href="{% url 'basket_page' %}"><img src="/static/store/img/basket.png" height="40" width="38" class="basket_logo"></a>
     {% else %}
-        <a href="{% url 'login' %}"><img src="/static/store/img/user.png" height="40" width="40" class="user_logo"></a>
+        <a href="{% url 'login' %}"><img src="/static/img/user.png" height="40" width="40" class="user_logo"></a>
         <a href="{% url 'login' %}"><img src="/static/store/img/basket.png" height="40" width="38" class="basket_logo"></a>
     {% endif %}
 
     <form method="GET" action="{% url 'search' %}">
-        <input type="text" size="45" class="search" name="search_field" placeholder="Поиск книги">
+        <input type="text" size="45" class="search" name="search_field" placeholder="Поиск книги или автора">
         <input type="submit" value="Поиск" class="search_button">
     </form>
 

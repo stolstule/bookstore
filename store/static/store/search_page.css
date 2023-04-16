@@ -1,0 +1,57 @@
+.book_block {
+    float: left;
+    font-size: 17px;
+    width: 180px;
+    height: 500px;
+    margin: 23px 10px 15px 23px;
+    padding-bottom: 8px;
+    text-align: center;
+}
+
+.title_style {
+    display: block;
+    color: black;
+    text-decoration: none;
+    font-family: arial;
+    font-size: 100%;
+}
+
+.author_style {
+    display: block;
+    color: gray;
+    font-size: 95%;
+    text-decoration: none;
+    font-family: arial;
+}
+
+.author_style:hover, .title_style:hover {
+    color: #973b3b;
+}
+
+.price_style {
+    text-align: center;
+    color: #973b3b;
+    font-size: 95%;
+    font-family: arial;
+}
+
+.result_block {
+    text-align: center;
+    display: inline-block;
+    width: 69%;
+    margin-left: 15%;
+    margin-bottom: 50px;
+    padding-top: 20px;
+    padding-left: 20px;
+    background: white;
+    border-left: 4px solid brown;
+    box-shadow: 0 5px 6px -2px lightgray;
+}
+
+.result_name {
+    font-family: arial;
+    font-size: 28px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    text-align: center;
+}
