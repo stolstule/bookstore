@@ -29,5 +29,30 @@
 }
 
 .profile-email {
+    color: gray;
+    font-weight: bold;
+    padding-bottom: 0px;
+}
 
+.profile-fields {
+    margin-left: 10px;
+    width: 80%;
+    margin-top: 110px;
+    font-size: 20px;
+    margin-left: 10px;
+}
+
+.form-fields {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+}
+
+.apply-btn {
+    font-size: 15px;
+    margin: 50px 0px 10px 0px;
+    background: #E8E9ED;
+    border: 1px solid gray;
+    width: 200px;
+    height: 30px;
 }

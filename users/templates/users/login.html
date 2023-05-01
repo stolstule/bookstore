@@ -23,9 +23,9 @@
             {% csrf_token %}
             <div class="form-section">
                 <h2>Вход</h2>
-                <span>Логин</span>
+                <p>Логин</p>
                 <div>{{ form.username|add_class:"form-input" }}</div>
-                <span>Пароль</span>
+                <p>Пароль</p>
                 <div>{{ form.password|add_class:"form-input" }}</div>
                 {% if form.errors %}
                     <div class="errors-section">Вы ввели неправильный логин или пароль!</div>

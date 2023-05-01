@@ -5,8 +5,9 @@ from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from store.models import Book, Category
-from .forms import UserRegisterForm, UserAuthenticationForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
 nehud_genre_navbar = Category.objects.filter(section='Нехудожественная литература')
@@ -64,7 +65,22 @@ def logout_view(request):
 
 @login_required
 def profile(request):
+    if request.method == 'POST':
+        user_form = UserUpdateForm(request.POST, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, f'Ваш профиль обновлен')
+            return redirect('profile')
+    else:
+        user_form = UserUpdateForm(instance=request.user)
+        profile_form = ProfileUpdateForm(instance=request.user.profile)
+
     return render(request, 'users/profile.html', {
-		'hud_genre_navbar': hud_genre_navbar,
-		'nehud_genre_navbar': nehud_genre_navbar
-	})
+        'hud_genre_navbar': hud_genre_navbar,
+        'nehud_genre_navbar': nehud_genre_navbar,
+		'user_form': user_form,
+		'profile_form': profile_form
+    })

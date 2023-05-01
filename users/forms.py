@@ -1,6 +1,6 @@
 from django import forms
-from django.forms import TextInput, EmailInput
 from django.contrib.auth.models import User
+from .models import Profile
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
@@ -18,8 +18,15 @@ class UserRegisterForm(UserCreationForm):
             },
         }
 
-class UserAuthenticationForm(AuthenticationForm):
-    error_messages = {
-        'invalid_login': 'Вы ввели неправильный логин или пароль!',
-        'inactive': 'Это аккаунт не активен!'
-    }
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
