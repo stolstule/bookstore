@@ -30,7 +30,7 @@ urlpatterns = [
     path('login/', user_views.LoginPage.as_view(), name='login'),
     path('logout/', user_views.logout_view, name='logout'),
     path('', include('store.urls'))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
 

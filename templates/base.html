@@ -14,7 +14,7 @@
 <nav class="top_nav">
     <a href="{% url 'main_page' %}"><img src="/static/store/img/main_logo.png" height="55" width="65" class="main_logo"></a>
     {% if user.is_authenticated %}
-        <a href="{% url 'profile' %}"><img src="/static/img/user.png" height="40" width="40" class="user_logo"></a>
+        <a href="{% url 'profile' %}"><img src="/media/img/user.png" height="40" width="40" class="user_logo"></a>
         <a href="{% url 'basket_page' %}"><img src="/static/store/img/basket.png" height="40" width="38" class="basket_logo"></a>
     {% else %}
         <a href="{% url 'login' %}"><img src="/static/img/user.png" height="40" width="40" class="user_logo"></a>

@@ -78,9 +78,6 @@ WSGI_APPLICATION = 'bookstore.wsgi.application'
 
 LOGIN_REDIRECT_URL = '/'
 
-urlpatterns = [
-    # ...
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

@@ -63,17 +63,22 @@ def logout_view(request):
 		'nehud_genre_navbar': nehud_genre_navbar
 	})
 
+
 @login_required
 def profile(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
 
-        if user_form.is_valid() and profile_form.is_valid():
-            user_form.save()
+        if 'image' in request.FILES:
             profile_form.save()
-            messages.success(request, f'Ваш профиль обновлен')
-            return redirect('profile')
+
+        if user_form.is_valid():
+            user_form.save()
+
+        messages.success(request, f'Ваш профиль обновлен')
+        return redirect('profile')
+
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
