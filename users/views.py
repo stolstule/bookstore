@@ -1,6 +1,6 @@
 import sys
 sys.path.append("..store")
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from store.models import Book, Category
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from django.contrib.auth.views import PasswordChangeView
 
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
 nehud_genre_navbar = Category.objects.filter(section='Нехудожественная литература')
@@ -89,3 +90,16 @@ def profile(request):
 		'user_form': user_form,
 		'profile_form': profile_form
     })
+
+class PasswordChange(PasswordChangeView):
+    template_name = 'password_change.html'
+    error_messages = {
+		'The two password fields didn’t match.': 'Пароли не совпадают',
+		'Your old password was entered incorrectly. Please enter it again.': 'Ваш старый пароль неверен.'
+	}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['hud_genre_navbar'] = hud_genre_navbar
+        context['nehud_genre_navbar'] = nehud_genre_navbar
+        return context

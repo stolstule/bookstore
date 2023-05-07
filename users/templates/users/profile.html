@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'users/profile_page.css' %}">
+    <link rel="stylesheet" href="{% static 'users/profile.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -25,7 +25,10 @@
 				{{ user_form.username|add_class:"form-fields" }}<br>
 				<p>Email:</p>
 				{{ user_form.email|add_class:"form-fields" }}<br>
+				<p>Пароль:</p>
+				<a href="{% url 'change_password' %}" class="pass-change">Изменить пароль</a><br>
 				<button class="apply-btn" type="submit">Применить изменения</button>
+				<a href="{% url 'logout' %}" class="logout">Выйти</a>
 			</form>
 		</div>
 	</div>
