@@ -93,13 +93,21 @@ def profile(request):
 
 class PasswordChange(PasswordChangeView):
     template_name = 'password_change.html'
-    error_messages = {
-		'The two password fields didn’t match.': 'Пароли не совпадают',
-		'Your old password was entered incorrectly. Please enter it again.': 'Ваш старый пароль неверен.'
-	}
+    success_url = 'users/pass_change_done.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['hud_genre_navbar'] = hud_genre_navbar
         context['nehud_genre_navbar'] = nehud_genre_navbar
         return context
+
+    def form_invalid(self, form):
+        context = self.get_context_data(form=form)
+        errors_list = []
+        for error in form.errors.values():
+            if 'The two password fields didn’t match.' in error:
+                errors_list.append('Пароли не совпадают.')
+            if 'Your old password was entered incorrectly. Please enter it again.' in error:
+                errors_list.append('Ваш старый пароль неверен.')
+        context['errors_list'] = errors_list
+        return self.render_to_response(context)

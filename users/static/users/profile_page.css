@@ -78,10 +78,19 @@ p {
     border: 1px solid gray;
 }
 
+.pass-change:hover {
+    background: #DDE0DC;
+    color: black;
+}
+
 .logout {
     position: relative;
     left: 580px;
     color: brown;
     text-weight: bold;
     text-decoration: none;
+}
+
+.logout:hover {
+    color: black;
 }
