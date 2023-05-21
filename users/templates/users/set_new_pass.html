@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Вход
+{% endblock %}
+
+{% block css_load %}
+    <link rel="stylesheet" href="{% static 'users/login_registr_page.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="register-section">
+            <form method="post">
+                {% csrf_token %}
+                    <div class="form-section">
+                        <p>Введите новый пароль:</p>
+                        {{ form.new_password1|add_class:"form-input" }}
+                        <p>Повторите пароль:</p>
+                        {{ form.new_password2|add_class:"form-input" }}
+                        <button type="submit" class="register-btn">Ввод</button>
+                    </div>
+                </div>
+            </form>
+    </div>
+{% endblock %}

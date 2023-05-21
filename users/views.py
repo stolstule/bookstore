@@ -3,46 +3,52 @@ sys.path.append("..store")
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from store.models import Book, Category
+from .models import Basket
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
+from django.urls import reverse_lazy
 
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
 nehud_genre_navbar = Category.objects.filter(section='Нехудожественная литература')
 
 def register(request):
-	field_errors = ''
-	if request.method == 'POST':
-		form = UserRegisterForm(request.POST)
-		if form.is_valid() and  not User.objects.filter(email=form.data['email']):
-			form.save()
-			username = form.cleaned_data.get('username')
-			return redirect('login')
-		elif form.errors:
-			field_errors = []
-			if User.objects.filter(email=form.data['email']):
-				field_errors.append('Такой email уже используется!')
-			for value_list in form.errors.values():
-				for value in value_list:
-					if value == 'This password is too short. It must contain at least 8 characters.':
-						field_errors.append('Пароль должен содержать не менее 8 символов!')
-					elif value == 'This password is too common.':
-						field_errors.append('Этот пароль слишком простой, пароль должен содержать цифры, заглавные и строчные буквы!')
-					elif value == 'The password is too similar to the username.':
-						field_errors.append('Пароль слишком похож на логин!')
-					else:
-						field_errors.append(value)
-	else:
-		form = UserRegisterForm()
-	return render(request, 'users/register_page.html', {
-		'form': form,
-		'field_errors': field_errors,
-		'hud_genre_navbar': hud_genre_navbar,
-		'nehud_genre_navbar': nehud_genre_navbar
-	})
+    field_errors = ''
+    if request.method == 'POST':
+        form = UserRegisterForm(request.POST)
+        if form.is_valid() and not User.objects.filter(email=form.data['email']):
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Профиль создан')
+            return redirect('login')
+        elif form.errors:
+            field_errors = []
+            if User.objects.filter(email=form.data['email']):
+                field_errors.append('Такой email уже используется!')
+            for value_list in form.errors.values():
+                for value in value_list:
+                    if value == 'This password is too short. It must contain at least 8 characters.':
+                        field_errors.append('Пароль должен содержать не менее 8 символов!')
+                    elif value == 'This password is too common.':
+                        field_errors.append('Этот пароль слишком простой, пароль должен содержать цифры, заглавные и строчные буквы!')
+                    elif value == 'The password is too similar to the username.':
+                        field_errors.append('Пароль слишком похож на логин!')
+                    else:
+                        field_errors.append(value)
+    else:
+        form = UserRegisterForm()
+    return render(request, 'users/register_page.html', {
+        'form': form,
+        'field_errors': field_errors,
+        'hud_genre_navbar': hud_genre_navbar,
+        'nehud_genre_navbar': nehud_genre_navbar
+    })
 
 class LoginPage(LoginView):
     template_name = 'users/login.html'
@@ -111,3 +117,53 @@ class PasswordChange(PasswordChangeView):
                 errors_list.append('Ваш старый пароль неверен.')
         context['errors_list'] = errors_list
         return self.render_to_response(context)
+
+class UserForgotPasswordView(SuccessMessageMixin, PasswordResetView):
+
+    template_name = 'users/password_recovery.html'
+    success_url = reverse_lazy('login')
+    success_message = 'Письмо с инструкцией по восстановлению пароля отправлено на ваш email'
+    subject_template_name = 'users/email/pass_subject_mail.txt'
+    email_template_name = 'users/email/pass_recovery_mail.html'
+
+    def form_valid(self, form):
+        if User.objects.filter(email=form.data['email']):
+            return super().form_valid(form)
+        else:
+            return super().form_invalid(form)
+    def form_invalid(self, form):
+        messages.error(self.request, 'Такой почты не существует')
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Сброс пароля на сайте'
+        context['hud_genre_navbar'] = hud_genre_navbar
+        context['nehud_genre_navbar'] = nehud_genre_navbar
+        return context
+
+
+class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView):
+
+    template_name = 'users/set_new_pass.html'
+    success_url = reverse_lazy('login')
+    success_message = 'Пароль успешно изменен'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Установить новый пароль'
+        context['hud_genre_navbar'] = hud_genre_navbar
+        context['nehud_genre_navbar'] = nehud_genre_navbar
+        return context
+
+def basket_add(request, book_id):
+    book = Book.objects.get(id=book_id)
+    baskets = Basket.objects.filter(user=request.user, book=book)
+
+    if not baskets.exists():
+        Basket.objects.create(user=request.user, book=book)
+
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+def basket_remove(reqeust, basket_id):
+    pass

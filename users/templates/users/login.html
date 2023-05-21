@@ -7,25 +7,18 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'users/login_registr.css' %}">
+    <link rel="stylesheet" href="{% static 'users/login_registr_page.css' %}">
 {% endblock %}
 
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-        <div class="message">
-            {{ message }}
-        </div>
-        {% endfor %}
-    {% endif %}
     <div class="register-section">
         <form method="POST">
             {% csrf_token %}
             <div class="form-section">
                 <h2>Вход</h2>
-                <p>Логин</p>
+                <p>Логин:</p>
                 <div>{{ form.username|add_class:"form-input" }}</div>
-                <p>Пароль</p>
+                <p>Пароль:</p>
                 <div>{{ form.password|add_class:"form-input" }}</div>
                 {% if form.errors %}
                     <div class="errors-section">Вы ввели неправильный логин или пароль!</div>
@@ -34,6 +27,9 @@
             </div>
             <div class="have-account">
                     Нет аккаунта? <a class="ml-2" href="{% url 'register' %}">Регистрация</a>
+            </div>
+            <div class="have-account">
+                <a class="ml-2" href="{% url 'password_reset' %}">Забыли пароль?</a>
             </div>
         </form>
     </div>

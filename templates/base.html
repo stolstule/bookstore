@@ -5,21 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'store/top_nav.css' %}">
+    <link rel="stylesheet" href="{% static 'store/top_navigate.css' %}">
     <link rel = "icon" href = "/static/store/img/icon_logo.gif" type = "image/x-icon">
     {% block css_load %}{% endblock %}
 </head>
 <body>
-
 <nav class="top_nav">
     <a href="{% url 'main_page' %}"><img src="/static/store/img/main_logo.png" height="55" width="65" class="main_logo"></a>
-    {% if user.is_authenticated %}
-        <a href="{% url 'profile' %}"><img src="/media/img/user.png" height="40" width="40" class="user_logo"></a>
-        <a href="{% url 'basket_page' %}"><img src="/static/store/img/basket.png" height="40" width="38" class="basket_logo"></a>
-    {% else %}
-        <a href="{% url 'login' %}"><img src="/static/img/user.png" height="40" width="40" class="user_logo"></a>
-        <a href="{% url 'login' %}"><img src="/static/store/img/basket.png" height="40" width="38" class="basket_logo"></a>
-    {% endif %}
+    <a href="{% url 'profile' %}"><img src="/static/store/img/user.png" height="40" width="40" class="user_logo"></a>
+    <a href="{% url 'login' %}"><img src="/static/store/img/basket.png" height="40" width="38" class="basket_logo"></a>
 
     <form method="GET" action="{% url 'search' %}">
         <input type="text" size="45" class="search" name="search_field" placeholder="Поиск книги или автора">
@@ -45,6 +39,13 @@
     <a href="{% url 'popular_books' %}" class="pop_random_button">Популярное</a>
     <a href="{% url 'random_book' %}" class="pop_random_button">Случайная книга</a>
 </nav>
+    {% if messages %}
+        <div class="message">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endif %}
 
     {% block content %}
     {% endblock %}
