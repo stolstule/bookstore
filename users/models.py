@@ -7,7 +7,7 @@ from store.models import Book
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='img/user.png', upload_to='profile_pics')
+    image = models.ImageField(default="/static/store/img/user.png", upload_to='profile_pics')
 
     def __str__(self):
         return f'{self.user.username} Profile'
@@ -21,8 +21,3 @@ class Basket(models.Model):
 
     def __str__(self):
         return f'Корзина для {self.user.username} | Продукт: {self.book.title}'
-
-    def total_sum(self):
-        baskets = Basket.objects.filter(user=self.User)
-        return
-# Create your models here.

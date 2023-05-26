@@ -175,6 +175,7 @@
 }
 
 .message {
+    font-family: arial;
     padding: 4px;
     text-align: center;
     background: lightgreen;

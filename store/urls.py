@@ -10,5 +10,4 @@ urlpatterns = [
     path('popular_books', views.PopularBooksPage.as_view(), name='popular_books'),
     path('book_page/<slug:slug_book>', views.BookPage.as_view(), name='book_page'),
     path('category/<slug:slug_genre>', views.ShowGenreBooks.as_view(), name='genre_page'),
-    path('basket', views.BasketAreaPage.as_view(), name='basket_page'),
 ]

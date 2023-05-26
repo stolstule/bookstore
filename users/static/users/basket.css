@@ -1,0 +1,79 @@
+.basket-block {
+    width: 46%;
+    font-family: arial;
+    box-shadow: 0 5px 6px -2px lightgray;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    background: white;
+    padding: 15px;
+}
+
+.item-block {
+    display: inline-block;
+    padding: 20px;
+    margin: 0px 20px 10px 20px;
+    width: 60%;
+    box-shadow: 0 5px 6px -2px lightgray;
+}
+
+.image-block {
+    float: left;
+    padding-right: 20px;
+}
+
+.title-block {
+    color: black;
+    display: inline-block;
+    width: 200px;
+    padding: 0px 20px 5px 0px;
+    margin-top: 0px;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.trash-icon {
+    display: inline-block;
+    float: right;
+    margin-left: 300px;
+}
+
+.price-block {
+    float: right;
+    color: brown;
+    font-size: 25px;
+    margin-bottom: 100px;
+}
+
+.total-block {
+    position: absolute;
+    padding: 10px;
+    top: 19%;
+    right: 28%;
+    float: right;
+    width: 230px;
+    border: 3px solid brown;
+    box-shadow: 0 5px 6px -2px lightgray;
+}
+
+.result-item {
+    background: lightgray;
+    border: 1px solid lightgray;
+    padding: 10px;
+    margin: 5px;
+}
+
+result-title {
+    font-size: 20px;
+}
+
+.result-price {
+    color: brown;
+}
+
+.total-sum {
+    font-size: 22px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+

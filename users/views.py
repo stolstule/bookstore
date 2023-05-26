@@ -79,12 +79,13 @@ def profile(request):
 
         if 'image' in request.FILES:
             profile_form.save()
+            messages.success(request, f'Ваш профиль обновлен')
+            return redirect('profile')
 
         if user_form.is_valid():
             user_form.save()
-
-        messages.success(request, f'Ваш профиль обновлен')
-        return redirect('profile')
+            messages.success(request, f'Ваш профиль обновлен')
+            return redirect('profile')
 
     else:
         user_form = UserUpdateForm(instance=request.user)
@@ -156,6 +157,19 @@ class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView
         context['nehud_genre_navbar'] = nehud_genre_navbar
         return context
 
+@login_required
+def basket_page(request):
+    total_sum = 0
+    for item in Basket.objects.filter(user=request.user):
+        total_sum += item.book.price
+    return render(request, 'users/basket.html', {
+        'baskets': Basket.objects.filter(user=request.user),
+        'total_sum': total_sum,
+        'hud_genre_navbar': hud_genre_navbar,
+        'nehud_genre_navbar': nehud_genre_navbar
+    })
+
+@login_required
 def basket_add(request, book_id):
     book = Book.objects.get(id=book_id)
     baskets = Basket.objects.filter(user=request.user, book=book)
@@ -165,5 +179,7 @@ def basket_add(request, book_id):
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
-def basket_remove(reqeust, basket_id):
-    pass
+def book_remove(request, book_id):
+    book = Basket.objects.get(user=request.user, book_id=book_id)
+    book.delete()
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

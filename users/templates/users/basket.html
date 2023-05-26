@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Корзина
+{% endblock %}
+
+{% block css_load %}
+    <link rel="stylesheet" href="{% static 'users/basket.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="basket-block">
+        {% if baskets %}
+            {% for item in baskets %}
+                <div class="item-block">
+                    <a class="image-block" href="{{ item.book.get_url }}"><img src="{{ item.book.image }}" height="200" width="130"></a>
+                    <a class="title-block" href="{{ item.book.get_url }}">{{ item.book.title }}</a>
+                    <div class="author-block">{{ item.book.author }}</div>
+                    <div class="price-block">{{ item.book.price }} ₽</div>
+                    <a class="trash-icon" href="{% url 'book_remove' item.book.id %}"><img src="/static/store/img/trash.png" height="30" width="30"></a>
+                </div>
+            {% endfor %}
+            <div class="total-block">
+                {% for item in baskets %}
+                    <div class="result-item">
+                        <div class="result-title">{{ item.book.title }}</div>
+                        <div class="result-price">{{ item.book.price }} ₽</div>
+                    </div>
+                {% endfor %}
+                <div class="total-sum">
+                    Итог:
+                    {{ total_sum }} ₽
+                </div>
+                <button>Оплатить</button>
+            </div>
+        {% else %}
+            <h3>Ваша корзина пуста</h3>
+        {% endif %}
+    </div>
+{% endblock %}
