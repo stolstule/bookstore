@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'users/basket.css' %}">
+    <link rel="stylesheet" href="{% static 'users/basket_page.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -18,7 +18,7 @@
                     <a class="title-block" href="{{ item.book.get_url }}">{{ item.book.title }}</a>
                     <div class="author-block">{{ item.book.author }}</div>
                     <div class="price-block">{{ item.book.price }} ₽</div>
-                    <a class="trash-icon" href="{% url 'book_remove' item.book.id %}"><img src="/static/store/img/trash.png" height="30" width="30"></a>
+                    <a class="trash-icon" href="{% url 'book_remove' item.book.id %}"><img src="/static/store/img/trash.png" height="27" width="27"></a>
                 </div>
             {% endfor %}
             <div class="total-block">
@@ -32,7 +32,7 @@
                     Итог:
                     {{ total_sum }} ₽
                 </div>
-                <button>Оплатить</button>
+                <button class="button">Оплатить</button>
             </div>
         {% else %}
             <h3>Ваша корзина пуста</h3>

@@ -14,7 +14,7 @@
         <h2>{{ book.title }}. {{ book.author }}</h2>
         <img src="{{ book.image }}" height="560" width="380">
         <div class="buy_block">Цена: {{ book.price }} ₽<br>
-            <a href="{% url 'basket_add' book.id %}">Купить</a>
+            <a href="{% url 'basket_add' book.id %}">В корзину</a>
         </div>
         <div class="details_block">
             <p>{{ book.isbn }}<br></p>

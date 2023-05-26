@@ -25,8 +25,8 @@
 .title-block {
     color: black;
     display: inline-block;
-    width: 200px;
-    padding: 0px 20px 5px 0px;
+    width: 150px;
+    padding: 10px 20px 5px 0px;
     margin-top: 0px;
     font-size: 20px;
     text-decoration: none;
@@ -39,10 +39,10 @@
 }
 
 .price-block {
-    float: right;
     color: brown;
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 100px;
+    margin-left: 470px;
 }
 
 .total-block {
@@ -73,7 +73,20 @@ result-title {
 
 .total-sum {
     font-size: 22px;
+    margin: 5px;
+    float: right;
+}
+
+.button {
+    font-size: 20px;
     margin-top: 10px;
     margin-left: 5px;
+    border: 1px solid gray;
+    height: 40px;
+    width: 95%;
+}
+
+.button:hover {
+    background: lightgray;
 }
 
