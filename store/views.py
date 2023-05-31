@@ -1,3 +1,6 @@
+import sys
+sys.path.append("..users")
+from users.models import Basket
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import Book, Category
@@ -103,8 +106,21 @@ class ShowGenreBooks(View):
 class BookPage(View):
     def get(self, request, slug_book):
         book = get_object_or_404(Book, slug=slug_book)
+        if request.user.is_authenticated:
+            if Basket.objects.filter(user=request.user, book=book):
+                basket = True
+            else:
+                basket = False
+
+        else:
+            if request.session['basket'] and book.id in request.session['basket']:
+                basket = True
+            else:
+                basket = False
+
         return render(request, 'store/book_page.html', {
             'book': book,
+            'basket': basket,
             'hud_genre_navbar': hud_genre_navbar,
             'nehud_genre_navbar': nehud_genre_navbar
         })

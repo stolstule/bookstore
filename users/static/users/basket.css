@@ -1,19 +1,25 @@
 .basket-block {
-    width: 46%;
+    border-left: 4px solid brown;
+    display: flex;
+    width: 800px;
     font-family: arial;
     box-shadow: 0 5px 6px -2px lightgray;
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
     background: white;
-    padding: 15px;
+    padding: 15px 15px 20px 7px;
+}
+
+.items-block {
+    width: 700px;
 }
 
 .item-block {
     display: inline-block;
     padding: 20px;
     margin: 0px 20px 10px 20px;
-    width: 60%;
+    width: 500px;
     box-shadow: 0 5px 6px -2px lightgray;
 }
 
@@ -25,9 +31,8 @@
 .title-block {
     color: black;
     display: inline-block;
-    width: 150px;
-    padding: 10px 20px 5px 0px;
-    margin-top: 0px;
+    width: 320px;
+    padding: 10px 20px 10px 0px;
     font-size: 20px;
     text-decoration: none;
 }
@@ -42,29 +47,23 @@
     color: brown;
     font-size: 22px;
     margin-bottom: 100px;
-    margin-left: 470px;
 }
 
-.total-block {
-    position: absolute;
-    padding: 10px;
-    top: 19%;
-    right: 28%;
-    float: right;
-    width: 230px;
-    border: 3px solid brown;
-    box-shadow: 0 5px 6px -2px lightgray;
+.author-block {
+    padding-left: 140px;
+    width: 320px;
+    padding-bottom: 10px;
 }
 
 .result-item {
     background: lightgray;
-    border: 1px solid lightgray;
     padding: 10px;
     margin: 5px;
+    box-shadow: 0 5px 6px -2px gray;
 }
 
-result-title {
-    font-size: 20px;
+.result-title {
+    margin-bottom: 5px;
 }
 
 .result-price {
@@ -75,6 +74,7 @@ result-title {
     font-size: 22px;
     margin: 5px;
     float: right;
+    border-bottom: 3px solid brown;
 }
 
 .button {
@@ -90,3 +90,18 @@ result-title {
     background: lightgray;
 }
 
+.basket_remove {
+    font-size: 15px;
+    background: #E8E9ED;
+    border: 1px solid gray;
+    display: inline-block;
+    color: black;
+    text-decoration: none;
+    padding: 6px;
+    margin-top: 10px;
+    margin-left: 40px;
+}
+
+.basket_remove:hover {
+    background: lightgray;
+}

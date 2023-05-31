@@ -7,6 +7,7 @@ urlpatterns = [
     path('basket', views.basket_page, name='basket'),
     path('basket/add/<int:book_id>/', views.basket_add, name='basket_add'),
     path('basket/remove/<int:book_id>/', views.book_remove, name='book_remove'),
+    path('basket/remove_all', views.basket_remove, name='basket_remove'),
     path('register/', views.register, name='register'),
     path('login/', views.LoginPage.as_view(), name='login'),
     path('logout/', views.logout_view, name='logout'),

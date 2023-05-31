@@ -157,29 +157,55 @@ class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView
         context['nehud_genre_navbar'] = nehud_genre_navbar
         return context
 
-@login_required
 def basket_page(request):
-    total_sum = 0
-    for item in Basket.objects.filter(user=request.user):
-        total_sum += item.book.price
-    return render(request, 'users/basket.html', {
-        'baskets': Basket.objects.filter(user=request.user),
-        'total_sum': total_sum,
-        'hud_genre_navbar': hud_genre_navbar,
-        'nehud_genre_navbar': nehud_genre_navbar
-    })
+    if request.user.is_authenticated:
+        total_sum = 0
+        for item in Basket.objects.filter(user=request.user):
+            total_sum += item.book.price
+        return render(request, 'users/basket.html', {
+            'baskets': Basket.objects.filter(user=request.user).book,
+            'total_sum': total_sum,
+            'hud_genre_navbar': hud_genre_navbar,
+            'nehud_genre_navbar': nehud_genre_navbar
+        })
+    else:
+        total_sum = 0
+        baskets = []
+        if request.session['basket']:
+            for book_id in request.session['basket']:
+                baskets.append(Book.objects.get(id=book_id))
+                total_sum += Book.objects.get(id=book_id).price
+        return render(request, 'users/basket.html', {
+            'baskets': baskets,
+            'total_sum': total_sum,
+            'hud_genre_navbar': hud_genre_navbar,
+            'nehud_genre_navbar': nehud_genre_navbar
+        })
 
-@login_required
 def basket_add(request, book_id):
-    book = Book.objects.get(id=book_id)
-    baskets = Basket.objects.filter(user=request.user, book=book)
-
-    if not baskets.exists():
-        Basket.objects.create(user=request.user, book=book)
-
-    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    if request.user.is_authenticated:
+        book = Book.objects.get(id=book_id)
+        baskets = Basket.objects.filter(user=request.user, book=book)
+        if not baskets.exists():
+            Basket.objects.create(user=request.user, book=book)
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    else:
+        book_list = request.session['basket']
+        book_list.append(book_id)
+        request.session['basket'] = book_list
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 def book_remove(request, book_id):
-    book = Basket.objects.get(user=request.user, book_id=book_id)
-    book.delete()
+    if request.user.is_authenticated:
+        book = Basket.objects.get(user=request.user, book_id=book_id)
+        book.delete()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+    else:
+        basket = request.session['basket'].remove(book_id)
+        request.session['basket'] = basket
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+def basket_remove(request):
+    basket = Basket.objects.filter(user=request.user)
+    basket.delete()
     return HttpResponseRedirect(request.META['HTTP_REFERER'])

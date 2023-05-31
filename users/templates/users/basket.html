@@ -6,26 +6,29 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'users/basket_page.css' %}">
+    <link rel="stylesheet" href="{% static 'users/basket.css' %}">
 {% endblock %}
 
 {% block content %}
     <div class="basket-block">
         {% if baskets %}
-            {% for item in baskets %}
-                <div class="item-block">
-                    <a class="image-block" href="{{ item.book.get_url }}"><img src="{{ item.book.image }}" height="200" width="130"></a>
-                    <a class="title-block" href="{{ item.book.get_url }}">{{ item.book.title }}</a>
-                    <div class="author-block">{{ item.book.author }}</div>
-                    <div class="price-block">{{ item.book.price }} ₽</div>
-                    <a class="trash-icon" href="{% url 'book_remove' item.book.id %}"><img src="/static/store/img/trash.png" height="27" width="27"></a>
-                </div>
-            {% endfor %}
+            <div class="items-block">
+                {% for item in baskets %}
+                    <div class="item-block">
+                        <a class="image-block" href="{{ item.get_url }}"><img src="{{ item.image }}" height="200" width="130"></a>
+                        <a class="title-block" href="{{ item.get_url }}">{{ item.title }}</a>
+                        <div class="author-block">{{ item.author }}</div>
+                        <div class="price-block">{{ item.price }} ₽</div>
+                        <a class="trash-icon" href="{% url 'book_remove' item.id %}"><img src="/static/store/img/trash.png" height="27" width="27"></a>
+                    </div>
+                {% endfor %}
+                <a class="basket_remove" href="{% url 'basket_remove' %}">Очистить корзину</a>
+            </div>
             <div class="total-block">
                 {% for item in baskets %}
                     <div class="result-item">
-                        <div class="result-title">{{ item.book.title }}</div>
-                        <div class="result-price">{{ item.book.price }} ₽</div>
+                        <div class="result-title">{{ item.title }}</div>
+                        <div class="result-price">{{ item.price }} ₽</div>
                     </div>
                 {% endfor %}
                 <div class="total-sum">

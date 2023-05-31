@@ -47,7 +47,7 @@
     margin-left: 10px;
 }
 
-.buy_block a {
+.add_book {
     border-radius: 3px;
     text-decoration: none;
     width: 155px;
@@ -64,8 +64,30 @@
     border: 0px;
 }
 
-.buy_block a:hover {
+.add_book:hover {
     display: block;
+    color: black;
+    transition: 0.1s;
+}
+
+.remove_book {
+    border-radius: 3px;
+    text-decoration: none;
+    width: 155px;
+    margin-top: 10px;
+    margin-left: 2px;
+    background: brown;
+    display: block;
+    font-size: 23px;
+    padding: 13px;
+    padding-left: 17px;
+    color: white;
+    font-weight: 100;
+    text-align: center;
+    border: 0px;
+}
+
+.remove_book:hover {
     color: black;
     transition: 0.1s;
 }
