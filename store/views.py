@@ -5,7 +5,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import Book, Category
 from django.db.models import Max, Min, Q, F
-from .forms import SearchForm
 
 # Create your views here.
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
@@ -111,12 +110,15 @@ class BookPage(View):
                 basket = True
             else:
                 basket = False
-
         else:
-            if request.session['basket'] and book.id in request.session['basket']:
-                basket = True
+            basket = False
+            if len(request.session.keys()) != 0:
+                if book.id in request.session['basket']:
+                    basket = True
+                else:
+                    basket = False
             else:
-                basket = False
+                request.session['basket'] = []
 
         return render(request, 'store/book_page.html', {
             'book': book,
@@ -124,6 +126,7 @@ class BookPage(View):
             'hud_genre_navbar': hud_genre_navbar,
             'nehud_genre_navbar': nehud_genre_navbar
         })
+
 
 def search_page(request):
     if request.method == 'GET':

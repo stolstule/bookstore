@@ -50,6 +50,7 @@ def register(request):
         'nehud_genre_navbar': nehud_genre_navbar
     })
 
+
 class LoginPage(LoginView):
     template_name = 'users/login.html'
     error_messages = {
@@ -98,6 +99,7 @@ def profile(request):
 		'profile_form': profile_form
     })
 
+
 class PasswordChange(PasswordChangeView):
     template_name = 'password_change.html'
     success_url = 'users/pass_change_done.html'
@@ -118,6 +120,7 @@ class PasswordChange(PasswordChangeView):
                 errors_list.append('Ваш старый пароль неверен.')
         context['errors_list'] = errors_list
         return self.render_to_response(context)
+
 
 class UserForgotPasswordView(SuccessMessageMixin, PasswordResetView):
 
@@ -157,13 +160,16 @@ class UserPasswordResetConfirmView(SuccessMessageMixin, PasswordResetConfirmView
         context['nehud_genre_navbar'] = nehud_genre_navbar
         return context
 
+
 def basket_page(request):
     if request.user.is_authenticated:
         total_sum = 0
+        baskets = []
         for item in Basket.objects.filter(user=request.user):
+            baskets.append(item.book)
             total_sum += item.book.price
         return render(request, 'users/basket.html', {
-            'baskets': Basket.objects.filter(user=request.user).book,
+            'baskets': baskets,
             'total_sum': total_sum,
             'hud_genre_navbar': hud_genre_navbar,
             'nehud_genre_navbar': nehud_genre_navbar
@@ -171,16 +177,20 @@ def basket_page(request):
     else:
         total_sum = 0
         baskets = []
-        if request.session['basket']:
+        if len(request.session.keys()) != 0:
             for book_id in request.session['basket']:
                 baskets.append(Book.objects.get(id=book_id))
                 total_sum += Book.objects.get(id=book_id).price
+        else:
+            request.session['basket'] = []
+
         return render(request, 'users/basket.html', {
             'baskets': baskets,
             'total_sum': total_sum,
             'hud_genre_navbar': hud_genre_navbar,
             'nehud_genre_navbar': nehud_genre_navbar
         })
+
 
 def basket_add(request, book_id):
     if request.user.is_authenticated:
@@ -190,10 +200,15 @@ def basket_add(request, book_id):
             Basket.objects.create(user=request.user, book=book)
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
     else:
-        book_list = request.session['basket']
-        book_list.append(book_id)
+        if len(request.session.keys()) != 0:
+            book_list = request.session['basket']
+            book_list.append(book_id)
+        else:
+            book_list = [book_id]
+            request.session['basket'] = book_list
         request.session['basket'] = book_list
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
 def book_remove(request, book_id):
     if request.user.is_authenticated:
@@ -201,9 +216,11 @@ def book_remove(request, book_id):
         book.delete()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
     else:
-        basket = request.session['basket'].remove(book_id)
+        basket = request.session['basket']
+        basket.remove(book_id)
         request.session['basket'] = basket
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
 
 def basket_remove(request):
     basket = Basket.objects.filter(user=request.user)
