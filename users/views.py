@@ -223,6 +223,9 @@ def book_remove(request, book_id):
 
 
 def basket_remove(request):
-    basket = Basket.objects.filter(user=request.user)
-    basket.delete()
+    if request.user.is_authenticated:
+        basket = Basket.objects.filter(user=request.user)
+        basket.delete()
+    else:
+        request.session['basket'] = []
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
