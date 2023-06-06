@@ -1,8 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from datetime import datetime
-from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator
+from django.contrib.auth.models import User
 from transliterate import translit
 from numpy import average
 
@@ -54,5 +53,10 @@ class Book(models.Model):
 
     def get_url(self):
         return reverse('book_page', args=[self.slug])
+
+class Review(models.Model):
+    user = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    book = models.ForeignKey(to=Book, on_delete=models.CASCADE)
+    content = models.TextField(max_length=600)
 
 

@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block title %}
     {{ book.title }}
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'store/book_page.css' %}">
+    <link rel="stylesheet" href="{% static 'store/book.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -32,4 +33,18 @@
         </div>
         <p class="description_block"><strong>Аннотация к книге: "{{ book.title }}"</strong><br>{{ book.description }}</p>
     </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="comments_block">
+            {% if user_auth %}
+                <div class="comment-input-block">
+                    <div>Комментарии:</div>
+                    <div>{{ form.content|add_class:"comment_input" }}</div>
+                    <button type="submit"></button>
+                </div>
+            {% else %}
+                <a href="{% url 'login' %}">Чтобы оставить комментарий войдите в аккаунт</a>
+            {% endif %}
+        </div>
+    </form>
 {% endblock %}

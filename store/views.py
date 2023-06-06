@@ -5,6 +5,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from .models import Book, Category
 from django.db.models import Max, Min, Q, F
+from .forms import ReviewForm
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
@@ -110,7 +112,9 @@ class BookPage(View):
                 basket = True
             else:
                 basket = False
+            user_auth = True
         else:
+            user_auth = False
             basket = False
             if len(request.session.keys()) != 0:
                 if book.id in request.session['basket']:
@@ -119,14 +123,22 @@ class BookPage(View):
                     basket = False
             else:
                 request.session['basket'] = []
+        form = ReviewForm()
 
         return render(request, 'store/book_page.html', {
+            'user_auth': user_auth,
+            'form': form,
             'book': book,
             'basket': basket,
             'hud_genre_navbar': hud_genre_navbar,
             'nehud_genre_navbar': nehud_genre_navbar
         })
 
+    def post(self, request, slug_book):
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+        return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 def search_page(request):
     if request.method == 'GET':
