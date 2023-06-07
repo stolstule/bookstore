@@ -3,8 +3,8 @@ sys.path.append("..users")
 from users.models import Basket
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from .models import Book, Category
-from django.db.models import Max, Min, Q, F
+from .models import Book, Category, Review
+from django.db.models import Max, Min, Q, Avg
 from .forms import ReviewForm
 from django.http import HttpResponseRedirect
 
@@ -113,6 +113,10 @@ class BookPage(View):
             else:
                 basket = False
             user_auth = True
+            if Review.objects.filter(user=request.user, book=book):
+                review_status = True
+            else:
+                review_status = False
         else:
             user_auth = False
             basket = False
@@ -123,9 +127,17 @@ class BookPage(View):
                     basket = False
             else:
                 request.session['basket'] = []
+        reviews = Review.objects.filter(book=book)
         form = ReviewForm()
+        if reviews.values('rating').aggregate(Avg('rating'))['rating__avg']:
+            rating_book = reviews.values('rating').aggregate(Avg('rating'))['rating__avg']
+        else:
+            rating_book = 'Нет оценок'
 
         return render(request, 'store/book_page.html', {
+            'rating_book': rating_book,
+            'review_status': review_status,
+            'reviews': reviews,
             'user_auth': user_auth,
             'form': form,
             'book': book,
@@ -137,7 +149,10 @@ class BookPage(View):
     def post(self, request, slug_book):
         form = ReviewForm(request.POST)
         if form.is_valid():
-            form.save()
+            review = form.save(commit=False)
+            review.user = request.user
+            review.book = Book.objects.get(slug=slug_book)
+            review.save()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 def search_page(request):

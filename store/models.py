@@ -35,12 +35,8 @@ class Book(models.Model):
     volume = models.IntegerField(default=0)
     description = models.TextField(max_length=4000, default='Без описания')
     publisher = models.CharField(max_length=200, default='NULL')
+    rating = models.IntegerField(default=0, null=True, blank=True)
 
-    rating_dict = []
-
-    def set_rating(self, number):
-        Book.rating_dict.append(number)
-        self.rating = average(Book.rating_dict)
 
     def save(self, *args, **kwargs):
         translit_slug = translit(self.title, language_code='ru', reversed=True)
@@ -58,5 +54,9 @@ class Review(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     book = models.ForeignKey(to=Book, on_delete=models.CASCADE)
     content = models.TextField(max_length=600)
+    rating = models.IntegerField(default=0)
 
-
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'book'], name='unique_review')
+        ]
