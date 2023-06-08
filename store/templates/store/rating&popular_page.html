@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load infinite_scroll %}
 
 {% block title %}
-    {{ search_field }}
+    Рейтинговое
 {% endblock %}
 
 {% block css_load %}
@@ -12,8 +11,12 @@
 
 {% block content %}
         {% if book_list %}
-            <h1 class="result_name">Результаты по запросу "{{ search_field }}"</h1>
-            <div class="result_block" id="result_block">
+            {% if label == 'rating' %}
+                <h1 class="result_name">Самые рейтинговые книги</h1>
+            {% else %}
+                <h1 class="result_name">Самые популярные книги</h1>
+            {% endif %}
+            <div class="result_block">
                 {% for book in book_list %}
                     <div class="book_block">
                         <a href="{{ book.get_url }}"><img src="{{ book.image }}" height="280" width="180"></a>
@@ -22,7 +25,6 @@
                         <div class="price_style">{{ book.price }} ₽</div>
                     </div>
                 {% endfor %}
-                {% infinite_scroll 'result_block' %}
             </div>
         {% else %}
             <h1 class="result_name">Результатов по запросу "{{ search_field }}" не найдено</h1>

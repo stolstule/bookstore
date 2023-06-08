@@ -36,6 +36,7 @@ class Book(models.Model):
     description = models.TextField(max_length=4000, default='Без описания')
     publisher = models.CharField(max_length=200, default='NULL')
     rating = models.IntegerField(default=0, null=True, blank=True)
+    count_review =  models.IntegerField(default=0, null=True, blank=True)
 
 
     def save(self, *args, **kwargs):

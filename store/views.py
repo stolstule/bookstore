@@ -7,6 +7,8 @@ from .models import Book, Category, Review
 from django.db.models import Max, Min, Q, Avg
 from .forms import ReviewForm
 from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
@@ -67,6 +69,7 @@ class ShowGenreBooks(View):
                 books_by_genre = books_by_genre.filter(volume__range=(0, get_request['volume_to']))
             elif len(get_request['volume_from']) > 0 and len(get_request['volume_to']) == 0:
                 books_by_genre = books_by_genre.filter(volume__range=(get_request['volume_from'], Book.objects.aggregate(Max("volume"))['volume__max']))
+
 
             return render(request, 'store/genre_page.html', {
                 'count_books': len(books_by_genre),
@@ -131,10 +134,16 @@ class BookPage(View):
         form = ReviewForm()
         if reviews.values('rating').aggregate(Avg('rating'))['rating__avg']:
             rating_book = reviews.values('rating').aggregate(Avg('rating'))['rating__avg']
+            get_book = Book.objects.get(id=book.id)
+            get_book.rating = rating_book
+            get_book.count_review = len(reviews)
+            get_book.save()
+
         else:
             rating_book = 'Нет оценок'
 
         return render(request, 'store/book_page.html', {
+            'count_reviews': len(reviews),
             'rating_book': rating_book,
             'review_status': review_status,
             'reviews': reviews,
@@ -172,14 +181,26 @@ def search_page(request):
         })
 
 
-class BasketAreaPage(View):
-    pass
+def rating_books(request):
+    if request.method == 'GET':
+        book_list = Book.objects.all().order_by('rating')
+        return render(request, 'store/rating&popular_page.html', {
+            'label': 'rating',
+            'book_list': book_list,
+            'hud_genre_navbar': hud_genre_navbar,
+            'nehud_genre_navbar': nehud_genre_navbar
+        })
 
-class PopularBooksPage(View):
-    pass
+def popular_books(request):
+    if request.method == 'GET':
+        book_list = Book.objects.all().order_by('count_review')
+        return render(request, 'store/rating&popular_page.html', {
+            'label': 'popular',
+            'book_list': book_list,
+            'hud_genre_navbar': hud_genre_navbar,
+            'nehud_genre_navbar': nehud_genre_navbar
+        })
 
-class RandomBookPage(View):
-    pass
-
-class RatingBooksPage(View):
-    pass
+def random_book(request):
+    book = Book.objects.order_by('?').first()
+    return redirect('book_page', slug_book=book.slug)

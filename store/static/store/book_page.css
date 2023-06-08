@@ -38,11 +38,11 @@
 
 .buy_block {
     background: lightgray;
-    margin-top: 10px;
+    margin-top: 0px;
     width: Auto;
     float: left;
     font-size: 25px;
-    padding: 15px 15px 15px 20px;
+    padding: 10px 15px 15px 20px;
     margin-left: 10px;
 }
 
@@ -194,3 +194,23 @@
     font-size: 30px;
     margin: 20px 10px 0px 420px;
 }
+
+.rating-book > p {
+    display: inline-block;
+    margin: 0px;
+    font-size: 25px;
+}
+
+.rating-book > svg {
+    display: inline-block;
+    vertical-align: middle;
+    padding-bottom: 5px;
+}
+
+.count_reviews {
+    display: inline-block;
+    font-size: 17px;
+    color: gray;
+}
+
+
