@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load infinite_scroll %}
 
 {% block title %}
     {{ search_field }}
@@ -8,13 +7,14 @@
 
 {% block css_load %}
     <link rel="stylesheet" href="{% static 'store/search_page.css' %}">
+    <link rel="stylesheet" href="{% static 'store/pagination.css' %}">
 {% endblock %}
 
 {% block content %}
-        {% if book_list %}
+        {% if page_obj %}
             <h1 class="result_name">Результаты по запросу "{{ search_field }}"</h1>
             <div class="result_block" id="result_block">
-                {% for book in book_list %}
+                {% for book in page_obj %}
                     <div class="book_block">
                         <a href="{{ book.get_url }}"><img src="{{ book.image }}" height="280" width="180"></a>
                         <a class="title_style" href="{{ book.get_url }}">{{ book.title }}</a>
@@ -22,7 +22,25 @@
                         <div class="price_style">{{ book.price }} ₽</div>
                     </div>
                 {% endfor %}
-                {% infinite_scroll 'result_block' %}
+
+            </div>
+        <!--  Пагинатор  -->
+             <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">Первая</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+                    {% endif %}
+
+                    <span class="current-page">
+                        {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Вперёд</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+                    {% endif %}
+                </span>
             </div>
         {% else %}
             <h1 class="result_name">Результатов по запросу "{{ search_field }}" не найдено</h1>

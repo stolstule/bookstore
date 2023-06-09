@@ -7,26 +7,41 @@
 
 {% block css_load %}
     <link rel="stylesheet" href="{% static 'store/search_page.css' %}">
+    <link rel="stylesheet" href="{% static 'store/pagination.css' %}">
 {% endblock %}
 
 {% block content %}
-        {% if book_list %}
-            {% if label == 'rating' %}
-                <h1 class="result_name">Самые рейтинговые книги</h1>
-            {% else %}
-                <h1 class="result_name">Самые популярные книги</h1>
-            {% endif %}
-            <div class="result_block">
-                {% for book in book_list %}
-                    <div class="book_block">
-                        <a href="{{ book.get_url }}"><img src="{{ book.image }}" height="280" width="180"></a>
-                        <a class="title_style" href="{{ book.get_url }}">{{ book.title }}</a>
-                        <a class="author_style" href="{{ book.get_url }}">{{ book.author }}</a>
-                        <div class="price_style">{{ book.price }} ₽</div>
-                    </div>
-                {% endfor %}
+    {% if label == 'rating' %}
+        <h1 class="result_name">Самые рейтинговые книги</h1>
+    {% else %}
+        <h1 class="result_name">Самые популярные книги</h1>
+    {% endif %}
+    <div class="result_block">
+        {% for book in page_obj %}
+            <div class="book_block">
+                <a href="{{ book.get_url }}"><img src="{{ book.image }}" height="280" width="180"></a>
+                <a class="title_style" href="{{ book.get_url }}">{{ book.title }}</a>
+                <a class="author_style" href="{{ book.get_url }}">{{ book.author }}</a>
+                <div class="price_style">{{ book.price }} ₽</div>
             </div>
-        {% else %}
-            <h1 class="result_name">Результатов по запросу "{{ search_field }}" не найдено</h1>
-        {% endif %}
+        {% endfor %}
+    </div>
+       <!--  Пагинатор  -->
+     <div class="pagination" style="margin-left: 40%;">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">Первая</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Назад</a>
+            {% endif %}
+
+            <span class="current-page">
+                {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Вперёд</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock %}

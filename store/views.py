@@ -7,8 +7,7 @@ from .models import Book, Category, Review
 from django.db.models import Max, Min, Q, Avg
 from .forms import ReviewForm
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 
 # Create your views here.
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
@@ -48,7 +47,9 @@ class ShowGenreBooks(View):
         else:
             genre_list = nehud_genre_navbar
         get_request = request.GET
-        if len(get_request) > 0:
+
+
+        if len(get_request) > 1:
             if len(get_request['author']) > 0 and len(get_request['publisher']) > 0:
                 books_by_genre = books_by_genre.filter(author__iexact=get_request['author']).filter(publisher__iexact=get_request['publisher'])
             elif len(get_request['author']) > 0 and len(get_request['publisher']) == 0:
@@ -70,10 +71,13 @@ class ShowGenreBooks(View):
             elif len(get_request['volume_from']) > 0 and len(get_request['volume_to']) == 0:
                 books_by_genre = books_by_genre.filter(volume__range=(get_request['volume_from'], Book.objects.aggregate(Max("volume"))['volume__max']))
 
+            paginator = Paginator(books_by_genre, 30)
+            page = request.GET.get('page')
+            page_obj = paginator.get_page(page)
 
             return render(request, 'store/genre_page.html', {
+                'page_obj': page_obj,
                 'count_books': len(books_by_genre),
-                'books_by_genre': books_by_genre,
                 'genre_name': genre_name,
                 'hud_genre_navbar': hud_genre_navbar,
                 'nehud_genre_navbar': nehud_genre_navbar,
@@ -92,9 +96,14 @@ class ShowGenreBooks(View):
                 'volume_max': Book.objects.aggregate(Max("volume"))['volume__max'],
             })
         else:
+
+            paginator = Paginator(books_by_genre, 30)
+            page = request.GET.get('page')
+            page_obj = paginator.get_page(page)
+
             return render(request, 'store/genre_page.html', {
+                'page_obj': page_obj,
                 'count_books': len(books_by_genre),
-                'books_by_genre': books_by_genre,
                 'genre_name': genre_name,
                 'hud_genre_navbar': hud_genre_navbar,
                 'nehud_genre_navbar': nehud_genre_navbar,
@@ -168,9 +177,12 @@ def search_page(request):
     if request.method == 'GET':
         search_field = request.GET.get('search_field', '')
         book_list = Book.objects.filter(Q(title__icontains=search_field) | Q(author__icontains=search_field))
+        paginator = Paginator(book_list, 30)
+        page = request.GET.get('page')
+        page_obj = paginator.get_page(page)
         return render(request, 'store/search_page.html', {
             'search_field': search_field,
-            'book_list': book_list,
+            'page_obj': page_obj,
             'hud_genre_navbar': hud_genre_navbar,
             'nehud_genre_navbar': nehud_genre_navbar
         })
@@ -184,9 +196,12 @@ def search_page(request):
 def rating_books(request):
     if request.method == 'GET':
         book_list = Book.objects.all().order_by('rating')
+        paginator = Paginator(book_list, 30)
+        page = request.GET.get('page')
+        page_obj = paginator.get_page(page)
         return render(request, 'store/rating&popular_page.html', {
+            'page_obj': page_obj,
             'label': 'rating',
-            'book_list': book_list,
             'hud_genre_navbar': hud_genre_navbar,
             'nehud_genre_navbar': nehud_genre_navbar
         })
@@ -194,9 +209,12 @@ def rating_books(request):
 def popular_books(request):
     if request.method == 'GET':
         book_list = Book.objects.all().order_by('count_review')
+        paginator = Paginator(book_list, 30)
+        page = request.GET.get('page')
+        page_obj = paginator.get_page(page)
         return render(request, 'store/rating&popular_page.html', {
             'label': 'popular',
-            'book_list': book_list,
+            'page_obj': page_obj,
             'hud_genre_navbar': hud_genre_navbar,
             'nehud_genre_navbar': nehud_genre_navbar
         })
