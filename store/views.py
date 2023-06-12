@@ -119,6 +119,7 @@ class ShowGenreBooks(View):
 class BookPage(View):
     def get(self, request, slug_book):
         book = get_object_or_404(Book, slug=slug_book)
+        review_status = False
         if request.user.is_authenticated:
             if Basket.objects.filter(user=request.user, book=book):
                 basket = True
@@ -127,8 +128,6 @@ class BookPage(View):
             user_auth = True
             if Review.objects.filter(user=request.user, book=book):
                 review_status = True
-            else:
-                review_status = False
         else:
             user_auth = False
             basket = False
@@ -167,9 +166,12 @@ class BookPage(View):
     def post(self, request, slug_book):
         form = ReviewForm(request.POST)
         if form.is_valid():
+            book_get = Book.objects.get(slug=slug_book)
+            book_get.count_review = book_get.count_review + 1
+            book_get.save()
             review = form.save(commit=False)
             review.user = request.user
-            review.book = Book.objects.get(slug=slug_book)
+            review.book = book_get
             review.save()
         return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
@@ -208,7 +210,7 @@ def rating_books(request):
 
 def popular_books(request):
     if request.method == 'GET':
-        book_list = Book.objects.all().order_by('count_review')
+        book_list = Book.objects.order_by('-count_review')
         paginator = Paginator(book_list, 30)
         page = request.GET.get('page')
         page_obj = paginator.get_page(page)

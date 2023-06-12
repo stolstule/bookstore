@@ -2,7 +2,11 @@
 {% load static %}
 
 {% block title %}
-    Рейтинговое
+    {% if label == 'popular' %}
+        Популярное
+    {% else %}
+        Рейтинговое
+    {% endif %}
 {% endblock %}
 
 {% block css_load %}

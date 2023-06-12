@@ -61,7 +61,11 @@
         <div class="reviews-block">
             {% for review in reviews %}
                 <div class="user-review-block">
-                    <img class="review-avatar" src="{{ review.user.profile.image.url }}" height="130" width="115">
+                    {% if review.user.profile.image.url == '/media/static/store/img/user.png' %}
+                        <img class="review-avatar" src="{{ review.user.profile.image }}" height="130" width="125">
+                    {% else %}
+                        <img class="review-avatar" src="{{ review.user.profile.image.url }}" height="130" width="125">
+                    {% endif %}
                     <div class="review-username">{{ review.user.username }}</div>
                     <div class="rating-review">
                         {% if review.rating == 1 %}

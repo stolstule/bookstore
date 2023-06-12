@@ -13,14 +13,18 @@
 {% block content %}
 	<div class="profile-block">
   	    <div class="head-block">
-            <img class="user-avatar" src="{{ user.profile.image.url }}" height="220" width="225">
+			{% if user.profile.image.url == '/media/static/store/img/user.png' %}
+				<img class="user-avatar" src="{{ user.profile.image }}" height="220" width="225">
+			{% else %}
+				<img class="user-avatar" src="{{ user.profile.image.url }}" height="220" width="225">
+			{% endif %}
 			<h2 class="profile-username">{{ user.username }}</h2>
 			<p class="profile-email">{{ user.email }}</p>
   		</div>
 		<div class="profile-fields">
 			<form method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
-				<input type="file">
+				<input type="file" name="image">
 				<p>Логин:</p>
 				{{ user_form.username|add_class:"form-fields" }}<br>
 				<p>Email:</p>

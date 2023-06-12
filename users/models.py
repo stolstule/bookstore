@@ -7,7 +7,7 @@ from store.models import Book
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default="/static/store/img/user.png", upload_to='profile_pics')
+    image = models.ImageField(default="/static/store/img/user.png", upload_to='media/')
 
     def __str__(self):
         return f'{self.user.username} Profile'

@@ -76,9 +76,9 @@ def logout_view(request):
 def profile(request):
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
-        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
+        profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 
-        if 'image' in request.FILES:
+        if profile_form.is_valid():
             profile_form.save()
             messages.success(request, f'Ваш профиль обновлен')
             return redirect('profile')
@@ -98,7 +98,6 @@ def profile(request):
 		'user_form': user_form,
 		'profile_form': profile_form
     })
-
 
 class PasswordChange(PasswordChangeView):
     template_name = 'password_change.html'
