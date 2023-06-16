@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.yandex',
+
+    'allauth.socialaccount.providers.vk',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -63,17 +64,18 @@ MIDDLEWARE = [
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.vk.VKOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
-SOCIALACCOUNT_PROVIDERS = {
-    'yandex': {
-        'APP': {
-            'client_id': '1b8e9ec0c1f84b97bec4d42a8b19ac0c',
-            'secret': '55cf4409821849738a88c41e6328e201',
-            'key': ''
-        }
-    }
-}
+SOCIAL_AUTH_VK_OAUTH2_KEY = '51678039'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'a81fYLqGVIjC2WjGOefC'
+
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '972262381408-a4ljpm93u84ldapdtg6h7res0bmfcjmi.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 
 ROOT_URLCONF = 'bookstore.urls'
 
@@ -89,6 +91,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
             ],
         },
     },
@@ -102,8 +105,6 @@ LOGIN_REDIRECT_URL = '/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -116,9 +117,6 @@ DATABASES = {
         }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -161,7 +159,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'main_page'
 LOGIN_URL = 'login'
 
 SITE_ID = 1

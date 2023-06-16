@@ -176,7 +176,7 @@ def basket_page(request):
     else:
         total_sum = 0
         baskets = []
-        if len(request.session.keys()) != 0:
+        if request.session.get('basket', None) != None:
             for book_id in request.session['basket']:
                 baskets.append(Book.objects.get(id=book_id))
                 total_sum += Book.objects.get(id=book_id).price

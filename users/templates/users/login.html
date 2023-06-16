@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block css_load %}
-    <link rel="stylesheet" href="{% static 'users/login_registr_page.css' %}">
+    <link rel="stylesheet" href="{% static 'users/login_registr.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -25,7 +25,7 @@
                     <div class="errors-section">Вы ввели неправильный логин или пароль!</div>
                 {% endif %}
                 <button class="register-btn" type="submit">Ввод</button>
-                <a href="{% provider_login_url 'yandex' %}">Войти через Яндекс</a>
+                <a href="/accounts/login/vk-oauth2" class="login-vk">Ввойти через vk</a>
             </div>
             <div class="have-account">
                     Нет аккаунта? <a class="ml-2" href="{% url 'register' %}">Регистрация</a>

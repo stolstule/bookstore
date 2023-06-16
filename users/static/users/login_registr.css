@@ -50,4 +50,17 @@
     padding: 0px;
 }
 
+.login-vk {
+    display: block;
+    text-decoration: none;
+    background: #536ffc;
+    color: white;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    margin-left: 27px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
 
