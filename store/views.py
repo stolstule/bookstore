@@ -195,7 +195,7 @@ def search_page(request):
         })
 
 
-def rating_books(request):
+def rating_books(self, request):
     if request.method == 'GET':
         book_list = Book.objects.all().order_by('rating')
         paginator = Paginator(book_list, 30)
