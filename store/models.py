@@ -37,6 +37,7 @@ class Book(models.Model):
     publisher = models.CharField(max_length=200, default='NULL')
     rating = models.IntegerField(default=0, null=True, blank=True)
     count_review =  models.IntegerField(default=0, null=True, blank=True)
+    user = models.ForeignKey(User, verbose_name='Пользователь', on_delete=models.CASCADE, default=24)
 
 
     def save(self, *args, **kwargs):

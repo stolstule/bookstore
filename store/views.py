@@ -8,6 +8,12 @@ from django.db.models import Max, Min, Q, Avg
 from .forms import ReviewForm
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator
+from .serializers import BookSerializer
+from rest_framework import generics, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 
 # Create your views here.
 hud_genre_navbar = Category.objects.filter(section='Художественная литература')
@@ -195,7 +201,7 @@ def search_page(request):
         })
 
 
-def rating_books(self, request):
+def rating_books(request):
     if request.method == 'GET':
         book_list = Book.objects.all().order_by('rating')
         paginator = Paginator(book_list, 30)
@@ -224,3 +230,19 @@ def popular_books(request):
 def random_book(request):
     book = Book.objects.order_by('?').first()
     return redirect('book_page', slug_book=book.slug)
+
+
+class BookAPIList(generics.ListCreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+
+class BookAPIUpdate(generics.RetrieveUpdateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = (IsOwnerOrReadOnly, )
+
+class BookAPIDestroy(generics.RetrieveDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = (IsAdminOrReadOnly, )
